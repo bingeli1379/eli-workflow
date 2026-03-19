@@ -225,5 +225,5 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 - **One commit per task** — each task gets its own commit using Conventional Commits: `<type>(scope): <task-number> <description>`
 - All work happens on the `<change-name>` branch — never commit directly to main/master
 - Code review and QA are mandatory steps — do NOT skip them
-- If review or QA fails, pause and report — do NOT auto-fix without user consent
+- If review or QA fails, orchestrator auto-dispatches fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.
 - Pass only RELEVANT specs to each agent (not all specs) to keep context focused
