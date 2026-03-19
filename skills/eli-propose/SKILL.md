@@ -52,7 +52,42 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - Read `eli-spec/specs/` for existing main specs (to understand what capabilities already exist)
    - These inform artifact generation but are NOT copied into artifact files
 
-5. **Generate artifacts in dependency order**
+5. **Clarify requirements and define feature boundaries**
+
+   Before generating any artifact, analyze the user's description and proactively clarify:
+
+   **a. Identify ambiguities** — look for:
+   - Vague scope ("improve search" → what aspects? full-text? filters? sorting?)
+   - Undefined behavior ("handle errors" → which errors? how should the UI respond?)
+   - Missing edge cases (what if no results? what if input is empty? concurrent access?)
+   - Implicit assumptions about existing systems
+
+   **b. Define feature boundaries** — explicitly call out:
+   - What IS included in this change (in-scope)
+   - What is NOT included (out-of-scope) — related features that should be separate changes
+   - Where this change interfaces with existing systems (integration points)
+
+   **c. Ask the user** using **AskUserQuestion** with a structured summary:
+   ```
+   Before I generate the spec, I want to confirm the scope:
+
+   **In-Scope:**
+   - [feature 1]
+   - [feature 2]
+
+   **Out-of-Scope (separate changes):**
+   - [related feature that should be its own change]
+
+   **Questions:**
+   1. [specific question about unclear behavior]
+   2. [specific question about edge case]
+   ```
+
+   - Ask all questions in ONE message, not one at a time
+   - If the user's description is already detailed and unambiguous, confirm the scope briefly and proceed
+   - After the user responds, incorporate their answers before generating artifacts
+
+6. **Generate artifacts in dependency order**
 
    Generate each artifact following the templates in this skill's `templates/` directory. The dependency order is:
 
@@ -130,11 +165,11 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - **Do NOT create `Test` groups** — unit tests belong inside Backend/Frontend tasks; E2E tests are tagged `(E2E)`
    - **Keep groups independent** — if two groups have cross-dependencies, note the dependency order but prefer designing them to be parallelizable
 
-6. **If an artifact requires user input** (unclear context, ambiguous requirements):
+7. **If an artifact requires user input** (unclear context, ambiguous requirements):
    - Use **AskUserQuestion tool** to clarify
    - Then continue with creation
 
-7. **Auto-validate and fix**
+8. **Auto-validate and fix**
 
    After all artifacts are created, **automatically** run the validation logic from `validate` skill:
    - Read all artifacts and check against all validation rules
@@ -142,7 +177,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - Re-validate until **all checks pass** (max 3 rounds to avoid infinite loops)
    - If issues persist after 3 rounds, report remaining issues and ask user for input
 
-8. **Show final summary**
+9. **Show final summary**
 
    ```
    ## Spec Created: <change-name>
@@ -169,7 +204,8 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 - Capability names in proposal MUST match `specs/<name>/` directory names exactly
 - Tasks MUST be grouped by feature/phase, with each task tagged by agent type in parentheses: `(Backend)`, `(Frontend)`, `(E2E)`, etc.
 - Every spec requirement MUST have SHALL/MUST and at least 2 WHEN/THEN scenarios (happy path + edge case)
-- If context is critically unclear, ask the user — but prefer making reasonable decisions to keep momentum
+- Proactively clarify ambiguities and define feature boundaries BEFORE generating artifacts — do NOT guess when scope is unclear
+- Ask all clarification questions in one structured message, not one at a time
 - Verify each artifact file exists after writing before proceeding to next
 - `config.yaml` context and rules are constraints for YOU, not content for artifact files
 - Use Traditional Chinese for artifact content (matching user's communication language)
