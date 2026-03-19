@@ -95,6 +95,14 @@ Phase 4:            Documentation
 
 No questions asked — specs are the single source of truth.
 
+### 3b. Batch implement (optional)
+
+```
+/eli-apply-all add-user-registration add-user-profile add-user-roles
+```
+
+Runs `/eli-apply` on each change sequentially. Confirm execution order once, then unattended. Failed changes are skipped and reported at the end.
+
 ### 4. Archive
 
 ```

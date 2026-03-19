@@ -16,6 +16,7 @@ Spec-driven multi-agent development team plugin for Claude Code.
 | `/eli-propose <description>` | Generate spec artifacts (proposal, design, specs, tasks) for a new change |
 | `/eli-validate <change-name>` | Validate spec artifacts against structural and content rules |
 | `/eli-apply <change-name>` | Implement tasks using agent team dispatch (no questions asked) |
+| `/eli-apply-all [names...]` | Batch apply multiple changes sequentially, unattended |
 | `/eli-archive <change-name>` | Archive completed change, sync specs to main |
 
 ## Spec Directory Structure
