@@ -25,7 +25,7 @@ user-invocable: false
 
 ```yaml
 # .github/workflows/ci.yml
-name: dotnet-cicd
+name: CI
 
 on:
   push:
@@ -91,7 +91,7 @@ jobs:
 
 ```yaml
 # .github/workflows/publish.yml
-name: dotnet-cicd
+name: Publish
 
 on:
   push:

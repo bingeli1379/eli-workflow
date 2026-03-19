@@ -1,8 +1,9 @@
 ---
 name: accessibility
 description: >
-  Run comprehensive accessibility audits on web projects using axe-core and
-  eslint-plugin-jsx-a11y. Configurable scan modes for WCAG 2.1 AA compliance.
+  Run comprehensive accessibility audits on web projects using axe-core runtime
+  scanning and eslint-plugin-jsx-a11y static analysis. Configurable scan modes
+  for WCAG 2.1 AA compliance.
 user-invocable: false
 ---
 

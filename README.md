@@ -11,8 +11,8 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 ```
 
 1. **Init** — auto-detect project context, create `eli-spec/` directory
-2. **Propose** — generate specs (SDD), domain model (DDD), API contract, tasks (TDD structure). Auto-validates and fixes until all checks pass.
-3. **Apply** — orchestrator dispatches agent team to implement in parallel, review, and verify
+2. **Propose** — clarify requirements and define feature boundaries, dispatch architect for design, generate specs (SDD), domain model (DDD), API contract, tasks (TDD structure). Auto-validates and fixes until all checks pass.
+3. **Apply** — launch named orchestrator agent to dispatch agent team in parallel, review, and verify. User can interact with orchestrator anytime.
 4. **Archive** — sync specs and move completed change to archive
 
 ## Prerequisites
@@ -106,7 +106,7 @@ No questions asked — specs are the single source of truth.
 | Agent | Role |
 |---|---|
 | `orchestrator` | Tech Lead — analyzes specs, dispatches agents, coordinates pipeline |
-| `architect` | Software Architect — system design (integrated into `/eli-propose`) |
+| `architect` | Software Architect — system design, dispatched by `/eli-propose` for `design.md` |
 | `vue-engineer` | Frontend — Vue 3 / Nuxt 4, TDD, Atomic Design, TailwindCSS |
 | `dotnet-engineer` | Backend — ASP.NET Core, TDD, Clean Architecture, EF Core |
 | `electron-engineer` | Desktop — Electron main process, IPC, preload, native OS, packaging |
@@ -118,7 +118,19 @@ No questions asked — specs are the single source of truth.
 | `qa-engineer` | QA — Playwright E2E acceptance testing against spec scenarios |
 | `technical-writer` | Documentation — API docs, changelogs, README, ADRs |
 
-## Bundled Skills (44)
+## Skill Updates
+
+Update all bundled skills from upstream:
+
+```bash
+./scripts/update-skills.sh          # update all non-frozen skills
+./scripts/update-skills.sh --all    # include frozen skills
+./scripts/update-skills.sh vue      # update a specific skill
+```
+
+Skill sources are tracked in `skills/SOURCES.yaml`. When adding a new skill, add its entry there.
+
+## Bundled Skills (48)
 
 All skills are included — no additional installation needed.
 

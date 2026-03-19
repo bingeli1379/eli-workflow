@@ -1,0 +1,191 @@
+# Skill source tracking
+# Maps each bundled skill to its upstream repository and path within that repo.
+# This file is for maintenance only — agents do not read it.
+# path: relative path to the skill directory containing SKILL.md (from repo root)
+
+# Vue / Frontend (from anthropics/skills — note: these skills were originally
+# sourced but are no longer present in the upstream repo; kept as-is)
+vue:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue
+  frozen: true
+vue-best-practices:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-best-practices
+  frozen: true
+vue-development-guides:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-development-guides
+  frozen: true
+vue-debug-guides:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-debug-guides
+  frozen: true
+vue-router-best-practices:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-router-best-practices
+  frozen: true
+vue-pinia-best-practices:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-pinia-best-practices
+  frozen: true
+vue-testing-best-practices:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-testing-best-practices
+  frozen: true
+vue-jsx-best-practices:
+  repo: https://github.com/anthropics/skills
+  path: skills/vue-jsx-best-practices
+  frozen: true
+vueuse-functions:
+  repo: https://github.com/anthropics/skills
+  path: skills/vueuse-functions
+  frozen: true
+create-adaptable-composable:
+  repo: https://github.com/anthropics/skills
+  path: skills/create-adaptable-composable
+  frozen: true
+nuxt:
+  repo: https://github.com/anthropics/skills
+  path: skills/nuxt
+  frozen: true
+pinia:
+  repo: https://github.com/anthropics/skills
+  path: skills/pinia
+  frozen: true
+vite:
+  repo: https://github.com/anthropics/skills
+  path: skills/vite
+  frozen: true
+vitest:
+  repo: https://github.com/anthropics/skills
+  path: skills/vitest
+  frozen: true
+pnpm:
+  repo: https://github.com/anthropics/skills
+  path: skills/pnpm
+  frozen: true
+antfu:
+  repo: https://github.com/anthropics/skills
+  path: skills/antfu
+  frozen: true
+unocss:
+  repo: https://github.com/anthropics/skills
+  path: skills/unocss
+  frozen: true
+web-design-guidelines:
+  repo: https://github.com/anthropics/skills
+  path: skills/web-design-guidelines
+  frozen: true
+
+# CSS
+tailwindcss:
+  repo: https://github.com/blencorp/claude-code-kit
+  path: cli/kits/tailwindcss/skills/tailwindcss
+
+# .NET
+dotnet-clean-architecture:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/clean-architecture
+dotnet-ef-core:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/ef-core
+dotnet-minimal-api:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/minimal-api
+dotnet-testing:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/testing
+dotnet-ddd:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/ddd
+dotnet-error-handling:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/error-handling
+dotnet-caching:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/caching
+dotnet-docker:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/docker
+dotnet-cicd:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/ci-cd
+
+# Database
+sql-expert:
+  repo: https://github.com/QuestForTech-Investments/claude-code-skills
+  path: sql-expert
+sql-query-optimization:
+  repo: https://github.com/secondsky/claude-skills
+  path: plugins/sql-query-optimization/skills/sql-query-optimization
+database-schema-design:
+  repo: https://github.com/secondsky/claude-skills
+  path: plugins/database-schema-design/skills/database-schema-design
+
+# DevOps
+devops-engineer:
+  repo: https://github.com/Jeffallan/claude-skills
+  path: skills/devops-engineer
+kubernetes:
+  repo: https://github.com/Jeffallan/claude-skills
+  path: skills/kubernetes-specialist
+gitlab-glab:
+  repo: https://github.com/henricook/claude-glab-skill
+  path: .
+
+# Security
+security-differential-review:
+  repo: https://github.com/trailofbits/skills
+  path: plugins/differential-review/skills/differential-review
+security-insecure-defaults:
+  repo: https://github.com/trailofbits/skills
+  path: plugins/insecure-defaults/skills/insecure-defaults
+security-sharp-edges:
+  repo: https://github.com/trailofbits/skills
+  path: plugins/sharp-edges/skills/sharp-edges
+security-supply-chain:
+  repo: https://github.com/trailofbits/skills
+  path: plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor
+
+# E2E Testing
+playwright:
+  repo: https://github.com/secondsky/claude-skills
+  path: plugins/playwright/skills/playwright
+
+# Electron
+electron-dev:
+  repo: https://github.com/chrisvoncsefalvay/claude-skills
+  path: electron-scaffold
+  filename: SKILL.md
+
+# Accessibility
+accessibility:
+  repo: https://github.com/airowe/claude-a11y-skill
+  path: .
+  filename: skill.md
+
+# Performance
+web-performance:
+  repo: https://github.com/addyosmani/web-quality-skills
+  path: skills/performance
+core-web-vitals:
+  repo: https://github.com/addyosmani/web-quality-skills
+  path: skills/core-web-vitals
+
+# Workflow
+conventional-commits:
+  repo: https://github.com/Jamie-BitFlight/claude_skills
+  path: plugins/conventional-commits/skills/conventional-commits
+
+# Workflow core (eli-workflow original — not updatable)
+eli-init:
+  repo: original
+eli-propose:
+  repo: original
+eli-validate:
+  repo: original
+eli-apply:
+  repo: original
+eli-archive:
+  repo: original
