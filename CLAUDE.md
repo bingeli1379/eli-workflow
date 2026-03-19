@@ -75,7 +75,6 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 - `vueuse-functions` — VueUse composables for concise, maintainable code
 - `create-adaptable-composable` — MaybeRef/MaybeRefOrGetter composable pattern
 - `tailwindcss` — Tailwind CSS v4 utility-first patterns, responsive, dark mode (from [blencorp/claude-code-kit](https://github.com/blencorp/claude-code-kit))
-- `shadcn-vue` — shadcn-vue + Reka UI accessible components for Vue/Nuxt (from [secondsky/claude-skills](https://github.com/secondsky/claude-skills))
 - `accessibility` — axe-core runtime a11y audit, WCAG 2.1 AA (from [airowe/claude-a11y-skill](https://github.com/airowe/claude-a11y-skill))
 - `antfu` — Anthony Fu's opinionated tooling conventions
 - `unocss` — UnoCSS atomic CSS engine, Tailwind superset
@@ -95,6 +94,7 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 - `kubernetes` — K8s workloads, networking, Helm, troubleshooting, GitOps (from [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills))
 - `dotnet-docker` — .NET multi-stage Docker builds, non-root, layer caching (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
 - `dotnet-cicd` — GitHub Actions + Azure DevOps pipelines for .NET (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `gitlab-glab` — GitLab CLI (glab) for MRs, pipelines, issues, releases (from [henricook/claude-glab-skill](https://github.com/henricook/claude-glab-skill))
 
 ### Performance Skills
 - `web-performance` — Critical rendering path, code splitting, image/font optimization (from [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills))

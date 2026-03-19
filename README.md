@@ -122,9 +122,9 @@ No questions asked — specs are the single source of truth.
 
 All skills are included — no additional installation needed.
 
-### Vue / Frontend (21)
+### Vue / Frontend (20)
 
-`vue` · `nuxt` · `pinia` · `vite` · `vitest` · `vue-best-practices` · `vue-development-guides` · `vue-debug-guides` · `vue-router-best-practices` · `vue-pinia-best-practices` · `vue-testing-best-practices` · `vue-jsx-best-practices` · `vueuse-functions` · `create-adaptable-composable` · `tailwindcss` · `shadcn-vue` · `accessibility` · `antfu` · `unocss` · `pnpm` · `web-design-guidelines`
+`vue` · `nuxt` · `pinia` · `vite` · `vitest` · `vue-best-practices` · `vue-development-guides` · `vue-debug-guides` · `vue-router-best-practices` · `vue-pinia-best-practices` · `vue-testing-best-practices` · `vue-jsx-best-practices` · `vueuse-functions` · `create-adaptable-composable` · `tailwindcss` · `accessibility` · `antfu` · `unocss` · `pnpm` · `web-design-guidelines`
 
 ### .NET / Backend (6)
 
@@ -138,9 +138,9 @@ All skills are included — no additional installation needed.
 
 `sql-expert` · `sql-query-optimization` · `database-schema-design`
 
-### DevOps (4)
+### DevOps (5)
 
-`devops-engineer` · `kubernetes` · `dotnet-docker` · `dotnet-cicd`
+`devops-engineer` · `kubernetes` · `dotnet-docker` · `dotnet-cicd` · `gitlab-glab`
 
 ### Performance (3)
 
@@ -198,11 +198,12 @@ Skills bundled from:
 - [anthropics/skills](https://github.com/anthropics/skills) — Vue ecosystem skills
 - [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit) — .NET skills
 - [trailofbits/skills](https://github.com/trailofbits/skills) — Security skills
-- [secondsky/claude-skills](https://github.com/secondsky/claude-skills) — Playwright, shadcn-vue
+- [secondsky/claude-skills](https://github.com/secondsky/claude-skills) — Playwright
 - [chrisvoncsefalvay/claude-skills](https://github.com/chrisvoncsefalvay/claude-skills) — Electron
 - [Jamie-BitFlight/claude_skills](https://github.com/Jamie-BitFlight/claude_skills) — Conventional Commits
 - [blencorp/claude-code-kit](https://github.com/blencorp/claude-code-kit) — TailwindCSS
 - [airowe/claude-a11y-skill](https://github.com/airowe/claude-a11y-skill) — Accessibility
 - [QuestForTech-Investments/claude-code-skills](https://github.com/QuestForTech-Investments/claude-code-skills) — SQL Expert
 - [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills) — DevOps, Kubernetes
+- [henricook/claude-glab-skill](https://github.com/henricook/claude-glab-skill) — GitLab CLI (glab)
 - [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) — Web Performance, Core Web Vitals
