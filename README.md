@@ -140,7 +140,7 @@ All skills are included — no additional installation needed.
 
 ### .NET / Backend (6)
 
-`dotnet-clean-architecture` · `dotnet-ef-core` · `dotnet-testing` · `dotnet-minimal-api` · `dotnet-ddd` · `dotnet-error-handling`
+`clean-architecture` · `ef-core` · `testing` · `minimal-api` · `ddd` · `error-handling`
 
 ### Electron (1)
 
@@ -152,11 +152,11 @@ All skills are included — no additional installation needed.
 
 ### DevOps (5)
 
-`devops-engineer` · `kubernetes` · `dotnet-docker` · `dotnet-cicd` · `gitlab-glab`
+`devops-engineer` · `kubernetes-specialist` · `docker` · `ci-cd` · `gitlab-glab`
 
 ### Performance (3)
 
-`web-performance` · `core-web-vitals` · `dotnet-caching`
+`performance` · `core-web-vitals` · `caching`
 
 ### E2E Testing (1)
 
@@ -164,7 +164,7 @@ All skills are included — no additional installation needed.
 
 ### Security (4)
 
-`security-differential-review` · `security-insecure-defaults` · `security-sharp-edges` · `security-supply-chain`
+`differential-review` · `insecure-defaults` · `sharp-edges` · `supply-chain-risk-auditor`
 
 ### Workflow (1)
 

@@ -1,5 +1,5 @@
 ---
-name: dotnet-clean-architecture
+name: clean-architecture
 description: >
   Clean Architecture for .NET applications. Covers the 4-project layout (Domain,
   Application, Infrastructure, Api), dependency inversion, use case handlers,

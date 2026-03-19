@@ -1,5 +1,5 @@
 ---
-name: security-supply-chain
+name: supply-chain-risk-auditor
 description: "Identifies dependencies at heightened risk of exploitation or takeover. Use when assessing supply chain attack surface, evaluating dependency health, or scoping security engagements."
 allowed-tools:
   - Read

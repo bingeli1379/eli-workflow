@@ -1,5 +1,5 @@
 ---
-name: dotnet-ef-core
+name: ef-core
 description: >
   Entity Framework Core patterns for .NET 10. Covers DbContext configuration,
   migrations workflow, interceptors, compiled queries, ExecuteUpdateAsync,

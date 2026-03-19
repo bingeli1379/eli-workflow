@@ -84,31 +84,31 @@ tailwindcss:
   path: cli/kits/tailwindcss/skills/tailwindcss
 
 # .NET
-dotnet-clean-architecture:
+clean-architecture:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/clean-architecture
-dotnet-ef-core:
+ef-core:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/ef-core
-dotnet-minimal-api:
+minimal-api:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/minimal-api
-dotnet-testing:
+testing:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/testing
-dotnet-ddd:
+ddd:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/ddd
-dotnet-error-handling:
+error-handling:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/error-handling
-dotnet-caching:
+caching:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/caching
-dotnet-docker:
+docker:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/docker
-dotnet-cicd:
+ci-cd:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/ci-cd
 
@@ -127,7 +127,7 @@ database-schema-design:
 devops-engineer:
   repo: https://github.com/Jeffallan/claude-skills
   path: skills/devops-engineer
-kubernetes:
+kubernetes-specialist:
   repo: https://github.com/Jeffallan/claude-skills
   path: skills/kubernetes-specialist
 gitlab-glab:
@@ -135,16 +135,16 @@ gitlab-glab:
   path: .
 
 # Security
-security-differential-review:
+differential-review:
   repo: https://github.com/trailofbits/skills
   path: plugins/differential-review/skills/differential-review
-security-insecure-defaults:
+insecure-defaults:
   repo: https://github.com/trailofbits/skills
   path: plugins/insecure-defaults/skills/insecure-defaults
-security-sharp-edges:
+sharp-edges:
   repo: https://github.com/trailofbits/skills
   path: plugins/sharp-edges/skills/sharp-edges
-security-supply-chain:
+supply-chain-risk-auditor:
   repo: https://github.com/trailofbits/skills
   path: plugins/supply-chain-risk-auditor/skills/supply-chain-risk-auditor
 
@@ -166,7 +166,7 @@ accessibility:
   filename: skill.md
 
 # Performance
-web-performance:
+performance:
   repo: https://github.com/addyosmani/web-quality-skills
   path: skills/performance
 core-web-vitals:

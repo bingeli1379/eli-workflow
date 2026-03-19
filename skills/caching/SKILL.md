@@ -1,5 +1,5 @@
 ---
-name: dotnet-caching
+name: caching
 description: >
   Caching strategies for .NET 10 applications. Covers HybridCache (the default),
   output caching, response caching, and distributed cache patterns.

@@ -1,5 +1,5 @@
 ---
-name: dotnet-minimal-api
+name: minimal-api
 description: >
   .NET 10 minimal APIs — the default for building HTTP endpoints. Covers MapGroup,
   endpoint filters, TypedResults, OpenAPI metadata, parameter binding, and route

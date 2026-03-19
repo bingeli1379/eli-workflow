@@ -91,15 +91,15 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 
 ### DevOps Skills
 - `devops-engineer` — Docker, K8s, GitHub Actions, Terraform, deployment strategies (from [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills))
-- `kubernetes` — K8s workloads, networking, Helm, troubleshooting, GitOps (from [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills))
-- `dotnet-docker` — .NET multi-stage Docker builds, non-root, layer caching (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
-- `dotnet-cicd` — GitHub Actions + Azure DevOps pipelines for .NET (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `kubernetes-specialist` — K8s workloads, networking, Helm, troubleshooting, GitOps (from [Jeffallan/claude-skills](https://github.com/Jeffallan/claude-skills))
+- `docker` — .NET multi-stage Docker builds, non-root, layer caching (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `ci-cd` — GitHub Actions + Azure DevOps pipelines for .NET (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
 - `gitlab-glab` — GitLab CLI (glab) for MRs, pipelines, issues, releases (from [henricook/claude-glab-skill](https://github.com/henricook/claude-glab-skill))
 
 ### Performance Skills
-- `web-performance` — Critical rendering path, code splitting, image/font optimization (from [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills))
+- `performance` — Critical rendering path, code splitting, image/font optimization (from [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills))
 - `core-web-vitals` — LCP, INP, CLS diagnosis and optimization (from [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills))
-- `dotnet-caching` — HybridCache, Output Caching, Redis, stampede protection (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `caching` — HybridCache, Output Caching, Redis, stampede protection (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
 
 ### E2E Testing Skills
 - `playwright` — Playwright E2E testing, cross-browser, visual regression, API testing (from [secondsky/claude-skills](https://github.com/secondsky/claude-skills))
@@ -108,18 +108,18 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 - `conventional-commits` — Conventional Commits v1.0.0, semantic versioning, changelog generation (from [Jamie-BitFlight/claude_skills](https://github.com/Jamie-BitFlight/claude_skills))
 
 ### .NET Skills (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
-- `dotnet-clean-architecture` — 4-layer layout, dependency inversion, use case handlers
-- `dotnet-ef-core` — DbContext, migrations, interceptors, compiled queries, query optimization
-- `dotnet-testing` — xUnit v3, WebApplicationFactory, Testcontainers, Verify, AAA pattern
-- `dotnet-minimal-api` — MapGroup, TypedResults, endpoint filters, OpenAPI, rate limiting
-- `dotnet-ddd` — Aggregates, value objects, domain events, strongly-typed IDs
-- `dotnet-error-handling` — Result pattern, ProblemDetails (RFC 9457), FluentValidation
+- `clean-architecture` — 4-layer layout, dependency inversion, use case handlers
+- `ef-core` — DbContext, migrations, interceptors, compiled queries, query optimization
+- `testing` — xUnit v3, WebApplicationFactory, Testcontainers, Verify, AAA pattern
+- `minimal-api` — MapGroup, TypedResults, endpoint filters, OpenAPI, rate limiting
+- `ddd` — Aggregates, value objects, domain events, strongly-typed IDs
+- `error-handling` — Result pattern, ProblemDetails (RFC 9457), FluentValidation
 
 ### Security Skills (from [trailofbits/skills](https://github.com/trailofbits/skills))
-- `security-differential-review` — Risk-first adaptive security review for PRs and diffs
-- `security-insecure-defaults` — Detect fail-open defaults, hardcoded secrets, weak auth
-- `security-sharp-edges` — Dangerous APIs, footgun designs, configuration cliffs
-- `security-supply-chain` — Dependency risk audit, single-maintainer detection
+- `differential-review` — Risk-first adaptive security review for PRs and diffs
+- `insecure-defaults` — Detect fail-open defaults, hardcoded secrets, weak auth
+- `sharp-edges` — Dangerous APIs, footgun designs, configuration cliffs
+- `supply-chain-risk-auditor` — Dependency risk audit, single-maintainer detection
 
 ## Development Methodology
 

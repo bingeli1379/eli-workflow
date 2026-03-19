@@ -1,5 +1,5 @@
 ---
-name: dotnet-ddd
+name: ddd
 description: >
   Domain-Driven Design tactical patterns for .NET applications. Covers aggregates,
   aggregate roots, value objects, domain events, domain services, strongly-typed IDs,
