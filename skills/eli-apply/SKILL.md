@@ -7,7 +7,7 @@ description: >
 user-invocable: true
 ---
 
-Implement tasks from a spec change. Reads all spec artifacts and dispatches tasks to the appropriate specialized agents through the orchestrator.
+Implement tasks from a spec change. Reads all spec artifacts, prepares context, then launches the orchestrator agent to coordinate the team.
 
 **IMPORTANT**: This skill does NOT ask questions during implementation. All requirements should be fully specified in the spec artifacts. If specs are incomplete, suggest running `/eli-validate` first.
 
@@ -71,104 +71,83 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    - Frontend - Search Page (5 tasks)
    ```
 
-5. **Dispatch tasks to agents via orchestrator**
+5. **Launch the orchestrator agent**
 
-   The orchestrator reads all spec artifacts and dispatches agents based on task groups.
+   Use the **Agent** tool to spawn the orchestrator as a **named, foreground agent**:
+   - `name`: `"orchestrator"`
+   - `subagent_type`: `"eli-workflow:orchestrator"`
 
-   **Agent mapping from task group names:**
+   Pass ALL the context you read in Step 3 as the agent prompt:
 
-   | Group keyword | Agent | Role file |
-   |--------------|-------|-----------|
-   | `Backend`, `API`, `Domain`, `Infrastructure` | dotnet-engineer | `agents/dotnet-engineer.md` |
-   | `Frontend`, `UI`, `Component`, `Page` | vue-engineer | `agents/vue-engineer.md` |
-   | `Electron`, `Main Process`, `IPC`, `Preload` | electron-engineer | `agents/electron-engineer.md` |
-   | `Database`, `Migration`, `Schema`, `Index` | database-engineer | `agents/database-engineer.md` |
-   | `DevOps`, `Docker`, `CI`, `CD`, `K8s`, `Pipeline` | devops-engineer | `agents/devops-engineer.md` |
-   | `Performance`, `Optimization`, `Caching`, `Bundle` | performance-engineer | `agents/performance-engineer.md` |
-   | `Security` | security-engineer | `agents/security-engineer.md` |
-   | `Documentation`, `Docs` | technical-writer | `agents/technical-writer.md` |
-   | `E2E` | qa-engineer | `agents/qa-engineer.md` |
-   | `Integration` | Orchestrator coordinates multiple agents |
+   ```
+   You are the orchestrator for change "<change-name>".
 
-   **Dispatch strategy:**
+   ## Spec Artifacts
 
-   a. **Phase 1 — Parallel development**: Dispatch these agents **in parallel**:
-      - QA agent: writes E2E tests (Playwright) from spec WHEN/THEN scenarios
-      - Backend agent(s): implements features with TDD (unit tests first)
-      - Frontend agent(s): implements features with TDD (unit tests first)
-      - All three can work simultaneously because design.md provides API contract and shared types
+   ### Proposal
+   [full proposal.md content]
 
-   b. **For each group, dispatch the corresponding agent** with this context:
-      - The agent's role definition (from `agents/<agent>.md`)
-      - Relevant spec files (only the specs related to this group's capability)
-      - The design decisions that affect this group
-      - The specific tasks assigned to this agent from `tasks.md`
-      - Project context from `config.yaml`
+   ### Design
+   [full design.md content]
 
-   c. **Agent prompt template:**
-      ```
-      You are working on change "<change-name>".
+   ### Tasks
+   [full tasks.md content]
 
-      ## Your Role
-      [agent role definition from agents/<agent>.md]
+   ### Specs
+   [all spec files content, labeled by capability]
 
-      ## Project Context
-      [from eli-spec/config.yaml]
+   ### Project Config
+   [config.yaml content, including lint_commands]
 
-      ## Design Decisions
-      [relevant sections from design.md]
+   ## Agent Prompt Template
 
-      ## Your Specs (Acceptance Criteria)
-      [relevant spec files]
+   When dispatching agents, compose their prompt with:
 
-      ## Your Tasks
-      [specific tasks from tasks.md for this group]
+   """
+   You are working on change "<change-name>".
 
-      ## Lint Commands (from config.yaml)
-      [lint_commands list, or "none configured" if empty]
+   ## Your Role
+   [agent role definition from agents/<agent>.md]
 
-      ## Instructions
-      - Implement each task in order
-      - Follow the spec scenarios as acceptance criteria
-      - Follow the design decisions — do NOT deviate
-      - **After completing each task**, you MUST:
-        1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
-        2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
-        3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
-      - Do NOT batch multiple tasks into one commit
-      - After the commit, report back: "DONE: <task-number> <task-description>"
-      - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
-      ```
+   ## Project Context
+   [from eli-spec/config.yaml]
 
-   d. **Phase 1 — Parallel dispatch using Agent tool**:
-      - QA (E2E test writing) + Backend groups + Frontend groups → all in parallel
-      - After all complete → Integration group (if any)
+   ## Design Decisions
+   [relevant sections from design.md]
 
-   e. **Phase 2 — After implementation agents complete, dispatch reviews in parallel**:
-      - review-engineer (`agents/review-engineer.md`) — architecture compliance, code quality
-      - security-engineer (`agents/security-engineer.md`) — vulnerabilities, auth, injection
-      - If either returns REQUEST CHANGES / ISSUES FOUND: show issues, pause for user decision
+   ## Your Specs (Acceptance Criteria)
+   [relevant spec files]
 
-   f. **Phase 3 — After reviews pass, dispatch qa-engineer to run E2E tests**:
-      - QA agent runs the Playwright E2E tests written in Phase 1
-      - Tests verify ALL spec WHEN/THEN scenarios pass end-to-end
-      - If QA returns FAILED:
-        1. Parse which scenarios failed and which agent is responsible
-        2. Dispatch the responsible agent (frontend/backend) with failure details
-        3. After fix, re-run QA E2E tests (max 2 retry rounds)
-        4. If still failing, pause and report to user
+   ## Your Tasks
+   [specific tasks from tasks.md for this group]
 
-   g. **Phase 4 — After QA passes, dispatch technical-writer**:
-      - technical-writer generates/updates API docs, changelog, README as needed
+   ## Lint Commands (from config.yaml)
+   [lint_commands list, or "none configured" if empty]
 
-6. **Verify task checkboxes**
+   ## Instructions
+   - Implement each task in order
+   - Follow the spec scenarios as acceptance criteria
+   - Follow the design decisions — do NOT deviate
+   - **After completing each task**, you MUST:
+     1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
+     2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
+     3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
+   - Do NOT batch multiple tasks into one commit
+   - After the commit, report back: "DONE: <task-number> <task-description>"
+   - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
+   - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
+   """
 
-   After all agents complete:
-   - Read `tasks.md` and verify the orchestrator has checked off all completed tasks
+   ## Your Instructions
+   Begin implementing now. Follow your Spec-Driven Mode dispatch process.
+   ```
+
+6. **After orchestrator completes, verify and report**
+
+   When the orchestrator agent returns:
+   - Read `tasks.md` and verify all completed tasks are checked `- [x]`
    - If any completed task was missed, update it now as a safety net
-   - Show final progress: "✓ X/M tasks complete"
-
-7. **On completion or pause, show status**
+   - Show final status (see templates below)
 
    **On completion:**
    ```
@@ -222,12 +201,22 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    What would you like to do?
    ```
 
+7. **User can interact with orchestrator at any time**
+
+   The orchestrator agent is named `"orchestrator"`. While it is running, the user can send messages to it via `SendMessage(to: "orchestrator")` to:
+   - Ask for progress updates
+   - Reprioritize tasks
+   - Ask it to dispatch a specific agent
+   - Pause or adjust the plan
+
+   Tell the user: "Orchestrator is running as **orchestrator**. You can talk to it anytime."
+
 ---
 
 ## Guardrails
 
 - **Never ask questions during implementation** — specs are the single source of truth
-- Always read ALL context files before dispatching any agent
+- Always read ALL context files before launching the orchestrator
 - Only dispatch agents for PENDING tasks (skip completed `- [x]` tasks)
 - Agents MUST update the task checkbox in `tasks.md`, run lint commands, and include everything in the same commit — one atomic commit per task
 - If `lint_commands` are configured in `config.yaml`, agents MUST run them before every commit — no exceptions
