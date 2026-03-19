@@ -1,5 +1,5 @@
 ---
-name: propose
+name: eli-propose
 description: >
   Generate spec artifacts (proposal, design, tasks, specs) for a new change.
   Use when the user wants to describe what they want to build and get a complete
@@ -151,7 +151,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    ### Validation
    ✓ PASS — all checks passed
 
-   Ready for implementation. Run `/eli-workflow:apply <name>` to start.
+   Ready for implementation. Run `/eli-apply <name>` to start.
    ```
 
 **Guardrails**

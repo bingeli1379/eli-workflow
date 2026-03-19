@@ -120,7 +120,7 @@ When invoked by `/apply`, you receive structured spec artifacts instead of a fre
    - After fix, re-run QA E2E tests (max 2 retry rounds)
    - If still failing after retries, pause and report to user
 10. **Phase 4 — Documentation**: After QA passes, dispatch technical-writer with specs + git diff
-11. **Report results** back to the caller — the `/eli-workflow:apply` workflow handles updating `tasks.md` checkboxes
+11. **Report results** back to the caller — the `/eli-apply` workflow handles updating `tasks.md` checkboxes
 
 ### Report Format (Spec-Driven)
 

@@ -7,7 +7,7 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 ## Workflow
 
 ```
-/eli-workflow:init → /eli-workflow:propose (auto-validate) → /eli-workflow:apply → /eli-workflow:archive
+/eli-init → /eli-propose (auto-validate) → /eli-apply → /eli-archive
 ```
 
 1. **Init** — auto-detect project context, create `eli-spec/` directory
@@ -61,13 +61,13 @@ claude
 ### 1. Initialize (once per project)
 
 ```
-/eli-workflow:init
+/eli-init
 ```
 
 ### 2. Propose a change
 
 ```
-/eli-workflow:propose add user search feature for admin dashboard
+/eli-propose add user search feature for admin dashboard
 ```
 
 Creates `eli-spec/changes/add-user-search/` with:
@@ -81,7 +81,7 @@ Automatically validates and fixes all artifacts before completion.
 ### 3. Implement
 
 ```
-/eli-workflow:apply add-user-search
+/eli-apply add-user-search
 ```
 
 The orchestrator dispatches agents through a 4-phase pipeline:
@@ -98,7 +98,7 @@ No questions asked — specs are the single source of truth.
 ### 4. Archive
 
 ```
-/eli-workflow:archive add-user-search
+/eli-archive add-user-search
 ```
 
 ## Agents
@@ -106,7 +106,7 @@ No questions asked — specs are the single source of truth.
 | Agent | Role |
 |---|---|
 | `orchestrator` | Tech Lead — analyzes specs, dispatches agents, coordinates pipeline |
-| `architect` | Software Architect — system design (integrated into `/eli-workflow:propose`) |
+| `architect` | Software Architect — system design (integrated into `/eli-propose`) |
 | `vue-engineer` | Frontend — Vue 3 / Nuxt 4, TDD, Atomic Design, TailwindCSS |
 | `dotnet-engineer` | Backend — ASP.NET Core, TDD, Clean Architecture, EF Core |
 | `electron-engineer` | Desktop — Electron main process, IPC, preload, native OS, packaging |

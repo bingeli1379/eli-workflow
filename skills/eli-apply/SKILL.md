@@ -1,5 +1,5 @@
 ---
-name: apply
+name: eli-apply
 description: >
   Implement tasks from a spec change using Agent Team dispatch.
   Use when the user wants to start or continue implementing a change.
@@ -13,11 +13,11 @@ metadata:
 
 Implement tasks from a spec change. Reads all spec artifacts and dispatches tasks to the appropriate specialized agents through the orchestrator.
 
-**IMPORTANT**: This skill does NOT ask questions during implementation. All requirements should be fully specified in the spec artifacts. If specs are incomplete, suggest running `/eli-workflow:validate` first.
+**IMPORTANT**: This skill does NOT ask questions during implementation. All requirements should be fully specified in the spec artifacts. If specs are incomplete, suggest running `/eli-validate` first.
 
 ---
 
-**Input**: Optionally specify a change name (e.g., `/eli-workflow:apply add-user-search`). If omitted, auto-detect.
+**Input**: Optionally specify a change name (e.g., `/eli-apply add-user-search`). If omitted, auto-detect.
 
 **Steps**
 
@@ -27,7 +27,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    - List directories under `eli-spec/changes/` (excluding `archive/`)
    - Auto-select if only one active change exists
    - If multiple, use **AskUserQuestion** to let the user choose
-   - If none exist, report error: "No active changes found. Run `/eli-workflow:propose` first."
+   - If none exist, report error: "No active changes found. Run `/eli-propose` first."
 
    Always announce: "Implementing change: **<name>**"
 
@@ -56,7 +56,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
 
    **If any required file is missing** (proposal, design, tasks, or specs):
    - Show which files are missing
-   - Suggest: "Run `/eli-workflow:validate <name>` to check completeness, or `/eli-workflow:propose` to generate missing artifacts."
+   - Suggest: "Run `/eli-validate <name>` to check completeness, or `/eli-propose` to generate missing artifacts."
    - Stop.
 
 4. **Parse tasks and show progress**
@@ -64,7 +64,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    Parse `tasks.md`:
    - Identify task groups (## headings) and their agent mapping
    - Count total tasks, completed (`- [x]`), and pending (`- [ ]`)
-   - If all tasks are complete: congratulate, suggest `/eli-workflow:archive <name>`
+   - If all tasks are complete: congratulate, suggest `/eli-archive <name>`
 
    Display:
    ```
@@ -188,7 +188,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    ### E2E Acceptance
    [PASSED — X/Y spec scenarios verified via Playwright]
 
-   All tasks complete! Run `/eli-workflow:archive <name>` to archive this change.
+   All tasks complete! Run `/eli-archive <name>` to archive this change.
    ```
 
    **On pause (issue encountered):**
@@ -212,7 +212,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    [Retry attempts: N/2]
 
    **Options:**
-   1. Fix issues and re-run `/eli-workflow:apply <name>`
+   1. Fix issues and re-run `/eli-apply <name>`
    2. Update specs and re-run
    3. Other approach
 
