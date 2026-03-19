@@ -4,6 +4,7 @@ description: >
   Generate spec artifacts (proposal, design, tasks, specs) for a new change.
   Use when the user wants to describe what they want to build and get a complete
   proposal with design, specs, and tasks ready for implementation.
+user-invocable: false
 license: MIT
 metadata:
   author: Eli

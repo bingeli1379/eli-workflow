@@ -11,6 +11,7 @@ allowed-tools:
   - Grep
   - Glob
   - Bash
+user-invocable: false
 ---
 
 # Differential Security Review

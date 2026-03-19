@@ -7,6 +7,7 @@ allowed-tools:
   - Bash
   - Glob
   - Grep
+user-invocable: false
 ---
 
 # Supply Chain Risk Auditor

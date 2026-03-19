@@ -1,6 +1,7 @@
 ---
 name: vue-development-guides
 description: A collection of best practices and tips for developing applications using Vue.js. This skill MUST be apply when developing, refactoring or reviewing Vue.js or Nuxt projects.
+user-invocable: false
 license: MIT
 metadata:
   author: github.com/vuejs-ai

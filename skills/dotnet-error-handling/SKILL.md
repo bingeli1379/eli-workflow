@@ -8,6 +8,7 @@ description: >
   API error contracts, or when the user mentions "error handling", "Result pattern",
   "ProblemDetails", "exception", "validation", "FluentValidation", "error response",
   "global exception handler", or "RFC 9457".
+user-invocable: false
 ---
 
 # Error Handling

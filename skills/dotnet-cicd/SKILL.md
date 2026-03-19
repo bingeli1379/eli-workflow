@@ -7,6 +7,7 @@ description: >
   deployment workflows, or when the user mentions "CI/CD", "pipeline",
   "GitHub Actions", "Azure DevOps", "workflow", "deploy", "build pipeline",
   "publish", "NuGet push", "release", or "continuous integration".
+user-invocable: false
 ---
 
 # CI/CD

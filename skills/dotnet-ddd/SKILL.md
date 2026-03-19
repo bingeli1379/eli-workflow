@@ -7,6 +7,7 @@ description: >
   Load this skill when implementing DDD, working with aggregates, value objects,
   domain events, bounded contexts, or when the architecture-advisor recommends
   DDD + Clean Architecture. Pair with the clean-architecture skill.
+user-invocable: false
 ---
 
 # Domain-Driven Design (DDD)

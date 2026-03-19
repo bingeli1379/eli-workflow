@@ -7,6 +7,7 @@ description: >
   Load this skill when building a project with Clean Architecture, discussing
   layered architecture, dependency inversion, use cases, or when the
   architecture-advisor recommends Clean Architecture.
+user-invocable: false
 ---
 
 # Clean Architecture

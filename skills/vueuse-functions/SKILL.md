@@ -1,6 +1,7 @@
 ---
 name: vueuse-functions
 description: Apply VueUse composables where appropriate to build concise, maintainable Vue.js / Nuxt features.
+user-invocable: false
 license: MIT
 metadata:
     author: SerKo <https://github.com/serkodev>

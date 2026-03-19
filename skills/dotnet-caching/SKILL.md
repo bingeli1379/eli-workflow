@@ -7,6 +7,7 @@ description: >
   database load, or when the user mentions "cache", "HybridCache", "Redis",
   "output cache", "response cache", "distributed cache", "IMemoryCache",
   "cache invalidation", "stampede protection", or "cache-aside".
+user-invocable: false
 ---
 
 # Caching

@@ -7,6 +7,7 @@ keywords: database schema, schema design, database normalization, 1nf 2nf 3nf,
   database best practices, schema patterns, database anti-patterns,
   missing primary key, no foreign key, varchar max, denormalization,
   entity relationship, composite key, uuid vs bigserial, timestamptz
+user-invocable: false
 license: MIT
 ---
 

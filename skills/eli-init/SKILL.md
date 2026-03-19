@@ -4,6 +4,7 @@ description: >
   Initialize eli-spec directory structure and auto-generate config.yaml with
   project context. Use when setting up a new project for the eli-workflow,
   or when the user wants to reconfigure project context.
+user-invocable: false
 license: MIT
 metadata:
   author: Eli

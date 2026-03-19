@@ -5,6 +5,7 @@ allowed-tools:
   - Read
   - Grep
   - Glob
+user-invocable: false
 ---
 
 # Sharp Edges Analysis

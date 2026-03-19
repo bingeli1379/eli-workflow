@@ -8,6 +8,7 @@ description: SQL query optimization for PostgreSQL/MySQL with indexing, EXPLAIN 
   LIMIT optimization, subquery performance, pagination, cursor based pagination, batch operations,
   pg_stat_statements, full-text search, bitmap scan, index only scan, query tuning, database performance,
   cache hit ratio, work_mem, shared_buffers, database monitoring
+user-invocable: false
 license: MIT
 ---
 

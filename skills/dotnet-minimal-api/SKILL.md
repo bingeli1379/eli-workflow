@@ -8,6 +8,7 @@ description: >
   OpenAPI documentation, or when the user mentions "endpoint", "MapGet", "MapPost",
   "MapGroup", "TypedResults", "route", "minimal API", "OpenAPI", "swagger",
   "rate limiting", or "output caching".
+user-invocable: false
 ---
 
 # Minimal APIs (.NET 10)

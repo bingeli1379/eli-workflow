@@ -2,6 +2,7 @@
 name: vue-jsx-best-practices
 description: JSX syntax in Vue (e.g., class vs className, JSX plugin config).
 version: 2.0.0
+user-invocable: false
 license: MIT
 author: github.com/vuejs-ai
 ---

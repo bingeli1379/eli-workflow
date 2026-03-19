@@ -4,6 +4,7 @@ description: >
   Implement tasks from a spec change using Agent Team dispatch.
   Use when the user wants to start or continue implementing a change.
   Reads spec artifacts and dispatches tasks to specialized agents.
+user-invocable: false
 license: MIT
 metadata:
   author: Eli

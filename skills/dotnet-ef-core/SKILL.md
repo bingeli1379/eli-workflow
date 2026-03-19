@@ -8,6 +8,7 @@ description: >
   changes, or when the user mentions "EF Core", "Entity Framework", "DbContext",
   "migration", "LINQ query", "database", "SQL", "N+1", "Include", "split query",
   "value converter", "interceptor", or "compiled query".
+user-invocable: false
 ---
 
 # EF Core (.NET 10)

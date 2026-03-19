@@ -3,6 +3,7 @@ name: eli-archive-change
 description: >
   Archive a completed change. Checks task completion, syncs delta specs
   to main specs, and moves the change to the archive directory.
+user-invocable: false
 license: MIT
 metadata:
   author: Eli

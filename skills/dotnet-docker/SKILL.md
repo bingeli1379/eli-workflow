@@ -8,6 +8,7 @@ description: >
   setting up Docker Compose for local development, or when the user mentions
   "Docker", "Dockerfile", "container", "docker-compose", "image", "multi-stage",
   "non-root", ".dockerignore", "container health check", or "dotnet publish container".
+user-invocable: false
 ---
 
 # Docker

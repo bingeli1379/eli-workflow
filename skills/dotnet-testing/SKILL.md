@@ -8,6 +8,7 @@ description: >
   test coverage, or when the user mentions "test", "xUnit", "WebApplicationFactory",
   "Testcontainers", "integration test", "unit test", "bUnit", "snapshot test",
   "Verify", "test coverage", "AAA pattern", "WireMock", or "FakeTimeProvider".
+user-invocable: false
 ---
 
 # Testing (.NET 10)

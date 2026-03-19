@@ -4,6 +4,7 @@ description: >
   Validate spec artifacts against structural and content rules.
   Use when the user wants to check if spec artifacts are complete and well-formed
   before implementation.
+user-invocable: false
 license: MIT
 metadata:
   author: Eli

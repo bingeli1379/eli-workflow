@@ -1,6 +1,7 @@
 ---
 name: kubernetes-specialist
 description: Use when deploying or managing Kubernetes workloads. Invoke to create deployment manifests, configure pod security policies, set up service accounts, define network isolation rules, debug pod crashes, analyze resource limits, inspect container logs, or right-size workloads. Use for Helm charts, RBAC policies, NetworkPolicies, storage configuration, performance optimization, GitOps pipelines, and multi-cluster management.
+user-invocable: false
 license: MIT
 metadata:
   author: https://github.com/Jeffallan
