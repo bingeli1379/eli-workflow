@@ -1,5 +1,5 @@
 ---
-name: ci-cd
+name: dotnet-cicd
 description: >
   CI/CD pipelines for .NET applications. Covers GitHub Actions and Azure DevOps
   YAML pipelines with build, test, publish, and deploy stages.
@@ -25,7 +25,7 @@ user-invocable: false
 
 ```yaml
 # .github/workflows/ci.yml
-name: CI
+name: dotnet-cicd
 
 on:
   push:
@@ -91,7 +91,7 @@ jobs:
 
 ```yaml
 # .github/workflows/publish.yml
-name: Publish
+name: dotnet-cicd
 
 on:
   push:

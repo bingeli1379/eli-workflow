@@ -1,5 +1,5 @@
 ---
-name: error-handling
+name: dotnet-error-handling
 description: >
   Error handling strategy for .NET 10 applications. Covers the Result pattern,
   ProblemDetails (RFC 9457), global exception handling, FluentValidation, and

@@ -5,10 +5,6 @@ description: >
   project context. Use when setting up a new project for the eli-workflow,
   or when the user wants to reconfigure project context.
 user-invocable: true
-license: MIT
-metadata:
-  author: Eli
-  version: "0.4.0"
 ---
 
 Initialize the `eli-spec/` directory structure in the current project and auto-generate `config.yaml` with project context.

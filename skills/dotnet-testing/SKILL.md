@@ -1,5 +1,5 @@
 ---
-name: testing
+name: dotnet-testing
 description: >
   Testing strategy for .NET 10 applications. Covers xUnit v3, WebApplicationFactory
   for integration tests, Testcontainers for real database testing, Verify for

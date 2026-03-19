@@ -1,5 +1,5 @@
 ---
-name: insecure-defaults
+name: security-insecure-defaults
 description: "Detects fail-open insecure defaults (hardcoded secrets, weak auth, permissive security) that allow apps to run insecurely in production. Use when auditing security, reviewing config management, or analyzing environment variable handling."
 allowed-tools:
   - Read

@@ -1,5 +1,5 @@
 ---
-name: differential-review
+name: security-differential-review
 description: >
   Performs security-focused differential review of code changes (PRs, commits, diffs).
   Adapts analysis depth to codebase size, uses git history for context, calculates

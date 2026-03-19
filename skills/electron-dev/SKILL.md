@@ -1,5 +1,5 @@
 ---
-name: electron-scaffold
+name: electron-dev
 description: Scaffold a native-looking, effective Electron app with best practices baked in. Creates a production-ready Electron application with security hardening, modern tooling, proper IPC patterns, auto-updates, native UI elements, and optimal build configuration. Use this skill when users want to start a new Electron project or modernize an existing one.
 user-invocable: false
 ---

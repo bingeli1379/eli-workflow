@@ -5,10 +5,6 @@ description: >
   Use when the user wants to check if spec artifacts are complete and well-formed
   before implementation.
 user-invocable: true
-license: MIT
-metadata:
-  author: Eli
-  version: "0.4.0"
 ---
 
 Validate spec artifacts for a change. Checks structural completeness, content quality, and referential integrity. All violations are errors — any failure blocks implementation.

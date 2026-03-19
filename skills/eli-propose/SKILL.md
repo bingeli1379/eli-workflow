@@ -5,10 +5,6 @@ description: >
   Use when the user wants to describe what they want to build and get a complete
   proposal with design, specs, and tasks ready for implementation.
 user-invocable: true
-license: MIT
-metadata:
-  author: Eli
-  version: "0.4.0"
 ---
 
 Generate a complete set of spec artifacts for a new change — proposal, design, specs, and tasks — all in one step. Follows **SDD (Spec-Driven Development)** with **DDD (Domain-Driven Design)** domain modeling.

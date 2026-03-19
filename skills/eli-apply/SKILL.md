@@ -5,10 +5,6 @@ description: >
   Use when the user wants to start or continue implementing a change.
   Reads spec artifacts and dispatches tasks to specialized agents.
 user-invocable: true
-license: MIT
-metadata:
-  author: Eli
-  version: "0.4.0"
 ---
 
 Implement tasks from a spec change. Reads all spec artifacts and dispatches tasks to the appropriate specialized agents through the orchestrator.
