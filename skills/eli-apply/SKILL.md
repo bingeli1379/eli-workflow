@@ -203,7 +203,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    2. Update specs and re-run
    3. Other approach
 
-   What would you like to do?
+   你想怎麼處理？
    ```
 
 ---

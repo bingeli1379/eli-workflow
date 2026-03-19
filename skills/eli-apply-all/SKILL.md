@@ -30,15 +30,15 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
    **If no arguments:** show the list and ask the user to confirm or reorder:
 
    ```
-   ## Batch Apply
+   ## 批次套用
 
-   Found N changes with pending tasks:
+   發現 N 個待處理的變更：
 
-   1. add-user-registration (5 pending / 8 total)
-   2. add-user-profile (3 pending / 3 total)
-   3. add-user-roles (4 pending / 4 total)
+   1. add-user-registration（5 待處理 / 8 總計）
+   2. add-user-profile（3 待處理 / 3 總計）
+   3. add-user-roles（4 待處理 / 4 總計）
 
-   Run in this order? Or specify a different order (e.g., "3, 1, 2"):
+   按此順序執行？或指定不同順序（例如 "3, 1, 2"）：
    ```
 
    Use **AskUserQuestion** to let the user confirm or reorder.
