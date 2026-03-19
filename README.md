@@ -7,7 +7,7 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 ## Workflow
 
 ```
-/eli:init → /eli:propose (auto-validate) → /eli:apply → /eli:archive
+/eli-workflow:init → /eli-workflow:propose (auto-validate) → /eli-workflow:apply → /eli-workflow:archive
 ```
 
 1. **Init** — auto-detect project context, create `eli-spec/` directory
@@ -61,13 +61,13 @@ claude
 ### 1. Initialize (once per project)
 
 ```
-/eli:init
+/eli-workflow:init
 ```
 
 ### 2. Propose a change
 
 ```
-/eli:propose add user search feature for admin dashboard
+/eli-workflow:propose add user search feature for admin dashboard
 ```
 
 Creates `eli-spec/changes/add-user-search/` with:
@@ -81,7 +81,7 @@ Automatically validates and fixes all artifacts before completion.
 ### 3. Implement
 
 ```
-/eli:apply add-user-search
+/eli-workflow:apply add-user-search
 ```
 
 The orchestrator dispatches agents through a 4-phase pipeline:
@@ -98,7 +98,7 @@ No questions asked — specs are the single source of truth.
 ### 4. Archive
 
 ```
-/eli:archive add-user-search
+/eli-workflow:archive add-user-search
 ```
 
 ## Agents
@@ -106,7 +106,7 @@ No questions asked — specs are the single source of truth.
 | Agent | Role |
 |---|---|
 | `orchestrator` | Tech Lead — analyzes specs, dispatches agents, coordinates pipeline |
-| `architect` | Software Architect — system design (integrated into `/eli:propose`) |
+| `architect` | Software Architect — system design (integrated into `/eli-workflow:propose`) |
 | `vue-engineer` | Frontend — Vue 3 / Nuxt 4, TDD, Atomic Design, TailwindCSS |
 | `dotnet-engineer` | Backend — ASP.NET Core, TDD, Clean Architecture, EF Core |
 | `electron-engineer` | Desktop — Electron main process, IPC, preload, native OS, packaging |
@@ -189,7 +189,7 @@ eli-spec/
 ## Customization
 
 - Edit `agents/` to adjust role definitions, tech stack, or coding standards
-- Edit `skills/eli-propose/templates/` to customize artifact templates
+- Edit `skills/propose/templates/` to customize artifact templates
 - Edit `eli-spec/config.yaml` in your project to set project-specific context and rules
 
 ## Credits

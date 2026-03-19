@@ -1,7 +1,7 @@
 ---
 name: sql-query-optimization
-description: SQL query optimization for PostgreSQL/MySQL with indexing, EXPLAIN analysis. Use for slow queries, N+1 problems, missing indexes, or encountering sequential scans, OFFSET pagination, temp table spills, inefficient JOINs.
-
+description: >
+  SQL query optimization for PostgreSQL/MySQL with indexing, EXPLAIN analysis. Use for slow queries, N+1 problems, missing indexes, or encountering sequential scans, OFFSET pagination, temp table spills, inefficient JOINs.
   Keywords: sql optimization, query performance, database indexes, explain analyze, slow queries, n+1 problem,
   query plan, index strategy, composite index, covering index, postgresql performance, mysql optimization,
   query rewriting, prepared statements, connection pooling, sequential scan, missing index, SELECT *,

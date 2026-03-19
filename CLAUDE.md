@@ -5,18 +5,18 @@ Spec-driven multi-agent development team plugin for Claude Code.
 ## Workflow
 
 ```
-/eli:init → /eli:propose → /eli:validate → /eli:apply → /eli:archive
+/eli-workflow:init → /eli-workflow:propose → /eli-workflow:validate → /eli-workflow:apply → /eli-workflow:archive
 ```
 
-## Commands
+## Skills (User-Invocable)
 
 | Command | Description |
 |---|---|
-| `/eli:init` | Initialize eli-spec directory and auto-generate config.yaml from project context |
-| `/eli:propose <description>` | Generate spec artifacts (proposal, design, specs, tasks) for a new change |
-| `/eli:validate <change-name>` | Validate spec artifacts against structural and content rules |
-| `/eli:apply <change-name>` | Implement tasks using agent team dispatch (no questions asked) |
-| `/eli:archive <change-name>` | Archive completed change, sync specs to main |
+| `/eli-workflow:init` | Initialize eli-spec directory and auto-generate config.yaml from project context |
+| `/eli-workflow:propose <description>` | Generate spec artifacts (proposal, design, specs, tasks) for a new change |
+| `/eli-workflow:validate <change-name>` | Validate spec artifacts against structural and content rules |
+| `/eli-workflow:apply <change-name>` | Implement tasks using agent team dispatch (no questions asked) |
+| `/eli-workflow:archive <change-name>` | Archive completed change, sync specs to main |
 
 ## Spec Directory Structure
 
@@ -123,7 +123,7 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 
 ## Development Methodology
 
-- **SDD (Spec-Driven Development)**: `/eli:propose` produces complete specs before any code is written
+- **SDD (Spec-Driven Development)**: `/eli-workflow:propose` produces complete specs before any code is written
 - **DDD (Domain-Driven Design)**: Domain model (aggregates, value objects, events) defined in `design.md` during propose
 - **TDD (Test-Driven Development)**: Frontend and backend agents write unit tests FIRST (Red → Green → Refactor)
 - **Contract-First**: API contracts and shared types defined in `design.md` enable parallel frontend/backend development

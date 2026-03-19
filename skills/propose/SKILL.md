@@ -1,10 +1,10 @@
 ---
-name: eli-propose
+name: propose
 description: >
   Generate spec artifacts (proposal, design, tasks, specs) for a new change.
   Use when the user wants to describe what they want to build and get a complete
   proposal with design, specs, and tasks ready for implementation.
-user-invocable: false
+user-invocable: true
 license: MIT
 metadata:
   author: Eli
@@ -19,7 +19,7 @@ Artifacts created:
 - `specs/<capability>/spec.md` — acceptance criteria (WHEN/THEN)
 - `tasks.md` — implementation checklist grouped by agent type (**TDD-style**: test first → implement → refactor)
 
-After all artifacts are created, **automatically runs validation** (`eli-validate` logic) and fixes any issues until all checks pass.
+After all artifacts are created, **automatically runs validation** (`validate` skill logic) and fixes any issues until all checks pass.
 
 ---
 
@@ -38,7 +38,7 @@ After all artifacts are created, **automatically runs validation** (`eli-validat
 
 2. **Ensure eli-spec is initialized**
 
-   Check if `eli-spec/config.yaml` exists. If not, execute the `eli-init` skill logic to initialize the directory structure and auto-detect project context.
+   Check if `eli-spec/config.yaml` exists. If not, execute the `init` skill logic to initialize the directory structure and auto-detect project context.
 
    If already initialized, read `eli-spec/config.yaml` for project context.
 
@@ -128,7 +128,7 @@ After all artifacts are created, **automatically runs validation** (`eli-validat
 
 7. **Auto-validate and fix**
 
-   After all artifacts are created, **automatically** run the validation logic from `eli-validate`:
+   After all artifacts are created, **automatically** run the validation logic from `validate` skill:
    - Read all artifacts and check against all validation rules
    - If any errors found: **fix them immediately** (edit the artifact files to resolve issues)
    - Re-validate until **all checks pass** (max 3 rounds to avoid infinite loops)
@@ -151,7 +151,7 @@ After all artifacts are created, **automatically runs validation** (`eli-validat
    ### Validation
    ✓ PASS — all checks passed
 
-   Ready for implementation. Run `/eli:apply <name>` to start.
+   Ready for implementation. Run `/eli-workflow:apply <name>` to start.
    ```
 
 **Guardrails**
