@@ -11,6 +11,15 @@
 #     Frontend follows Atomic Design + Composable Pattern
 #     Backend follows Clean Architecture
 
+# Lint/format commands to run before each commit (optional)
+# Agents run these in order before committing. Use fix mode so auto-fixable issues are resolved.
+# Example:
+#   lint_commands:
+#     - pnpm eslint --fix .
+#     - pnpm prettier --write .
+#     - pnpm stylelint --fix "**/*.{css,vue}"
+#     - dotnet format
+
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.
 # Example:

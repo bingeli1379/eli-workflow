@@ -49,7 +49,21 @@ Initialize the `eli-spec/` directory structure in the current project and auto-g
    - `CLAUDE.md` → team standards, commit conventions, architecture patterns
    - `.eslintrc*` / `eslint.config.*` → linting rules
    - `.prettierrc*` → formatting rules
+   - `.stylelintrc*` / `stylelint.config.*` → style linting rules
    - `.editorconfig` → editor settings
+
+   **Lint commands** — detect available lint/format tools and generate `lint_commands`:
+   - Check `package.json` scripts for `lint`, `lint:fix`, `format`, `stylelint` entries
+   - Check for config files: `eslint.config.*`, `.eslintrc*`, `.prettierrc*`, `.stylelintrc*`, `stylelint.config.*`
+   - Check for `.csproj` / `.sln` → `dotnet format`
+   - Build the list using **fix mode** (e.g., `--fix`, `--write`) so auto-fixable issues are resolved
+   - Use the project's package manager (pnpm/npm/yarn) based on lock file detection
+   - Example output:
+     ```yaml
+     lint_commands:
+       - pnpm eslint --fix .
+       - pnpm prettier --write .
+     ```
 
    **Domain** — infer from:
    - Project name (from package.json or directory name)
@@ -71,6 +85,9 @@ Initialize the `eli-spec/` directory structure in the current project and auto-g
      [detected conventions]
      Domain: [inferred domain]
      [other relevant context]
+
+   lint_commands:
+     - [detected lint/format commands in fix mode]
 
    rules:
      proposal:

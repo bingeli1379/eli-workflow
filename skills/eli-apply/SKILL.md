@@ -48,7 +48,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    - `specs/*/spec.md` — all capability specs (acceptance criteria)
 
    Also read:
-   - `eli-spec/config.yaml` — project context (if exists)
+   - `eli-spec/config.yaml` — project context and `lint_commands` (if exists)
 
    **If any required file is missing** (proposal, design, tasks, or specs):
    - Show which files are missing
@@ -124,13 +124,17 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
       ## Your Tasks
       [specific tasks from tasks.md for this group]
 
+      ## Lint Commands (from config.yaml)
+      [lint_commands list, or "none configured" if empty]
+
       ## Instructions
       - Implement each task in order
       - Follow the spec scenarios as acceptance criteria
       - Follow the design decisions — do NOT deviate
       - **After completing each task**, you MUST:
         1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
-        2. Commit BOTH the code changes AND the checkbox update together using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
+        2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
+        3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
       - Do NOT batch multiple tasks into one commit
       - After the commit, report back: "DONE: <task-number> <task-description>"
       - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
@@ -225,7 +229,8 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
 - **Never ask questions during implementation** — specs are the single source of truth
 - Always read ALL context files before dispatching any agent
 - Only dispatch agents for PENDING tasks (skip completed `- [x]` tasks)
-- Agents MUST update the task checkbox in `tasks.md` and include it in the same commit as the code change — one atomic commit per task
+- Agents MUST update the task checkbox in `tasks.md`, run lint commands, and include everything in the same commit — one atomic commit per task
+- If `lint_commands` are configured in `config.yaml`, agents MUST run them before every commit — no exceptions
 - If a task genuinely cannot be implemented (missing dependency, unclear spec), skip it and flag it in the report — do NOT block the entire pipeline
 - Keep code changes minimal and scoped to each task
 - **One commit per task** — each task gets its own commit using Conventional Commits: `<type>(scope): <task-number> <description>`
