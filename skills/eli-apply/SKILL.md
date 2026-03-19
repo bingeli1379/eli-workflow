@@ -128,10 +128,12 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
       - Implement each task in order
       - Follow the spec scenarios as acceptance criteria
       - Follow the design decisions — do NOT deviate
-      - After completing each task, report what was done
-      - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
-      - Commit after EACH task (not grouped) using Conventional Commits format: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`, `test(api): 1.2 add search endpoint unit tests`, `fix(auth): 2.1 correct token validation`)
+      - **After completing each task**, you MUST:
+        1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
+        2. Commit BOTH the code changes AND the checkbox update together using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
       - Do NOT batch multiple tasks into one commit
+      - After the commit, report back: "DONE: <task-number> <task-description>"
+      - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
       ```
 
    d. **Phase 1 — Parallel dispatch using Agent tool**:
@@ -155,11 +157,12 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
    g. **Phase 4 — After QA passes, dispatch technical-writer**:
       - technical-writer generates/updates API docs, changelog, README as needed
 
-6. **Update task checkboxes**
+6. **Verify task checkboxes**
 
-   After each task group completes successfully:
-   - Update `tasks.md`: change `- [ ]` to `- [x]` for completed tasks
-   - Show progress update: "✓ Group N complete (X/M total)"
+   After all agents complete:
+   - Read `tasks.md` and verify the orchestrator has checked off all completed tasks
+   - If any completed task was missed, update it now as a safety net
+   - Show final progress: "✓ X/M tasks complete"
 
 7. **On completion or pause, show status**
 
@@ -222,7 +225,7 @@ Implement tasks from a spec change. Reads all spec artifacts and dispatches task
 - **Never ask questions during implementation** — specs are the single source of truth
 - Always read ALL context files before dispatching any agent
 - Only dispatch agents for PENDING tasks (skip completed `- [x]` tasks)
-- Update task checkboxes in `tasks.md` immediately after each group completes
+- Agents MUST update the task checkbox in `tasks.md` and include it in the same commit as the code change — one atomic commit per task
 - If a task genuinely cannot be implemented (missing dependency, unclear spec), skip it and flag it in the report — do NOT block the entire pipeline
 - Keep code changes minimal and scoped to each task
 - **One commit per task** — each task gets its own commit using Conventional Commits: `<type>(scope): <task-number> <description>`
