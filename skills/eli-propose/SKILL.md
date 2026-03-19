@@ -67,7 +67,18 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - What is NOT included (out-of-scope) — related features that should be separate changes
    - Where this change interfaces with existing systems (integration points)
 
-   **c. Ask the user** using **AskUserQuestion** with a structured summary:
+   **c. Assess change size** — estimate the scope and flag if it's too large:
+   - Count the number of distinct capabilities / features involved
+   - Consider how many layers are affected (frontend, backend, database, infrastructure)
+   - If the change touches 3+ independent capabilities, or would produce 15+ tasks, it is likely too large
+   - Suggest splitting into smaller changes that are **easy for humans to review** — each change should be:
+     - Reviewable in one sitting (a reviewer can understand the full diff without losing context)
+     - Self-contained (makes sense on its own, doesn't leave the codebase in a broken state)
+     - Focused on one logical concern (one feature, one refactor, one migration — not mixed)
+   - Each split becomes its own `/eli-propose` → `/eli-apply` cycle
+   - Example: "Add user management" could split into: `add-user-registration`, `add-user-profile`, `add-user-roles`
+
+   **d. Ask the user** using **AskUserQuestion** with a structured summary:
    ```
    Before I generate the spec, I want to confirm the scope:
 
@@ -77,6 +88,13 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 
    **Out-of-Scope (separate changes):**
    - [related feature that should be its own change]
+
+   **Scope Assessment:** [OK / Too Large]
+   [If too large: suggest how to split, e.g.:]
+   > This change covers X independent capabilities. I'd recommend splitting into:
+   > 1. `/eli-propose add-xxx` — [description]
+   > 2. `/eli-propose add-yyy` — [description]
+   > Want to proceed as-is or split?
 
    **Questions:**
    1. [specific question about unclear behavior]
