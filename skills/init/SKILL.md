@@ -8,7 +8,7 @@ user-invocable: true
 license: MIT
 metadata:
   author: Eli
-  version: "0.2.0"
+  version: "0.3.0"
 ---
 
 Initialize the `eli-spec/` directory structure in the current project and auto-generate `config.yaml` with project context.
