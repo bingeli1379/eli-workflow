@@ -15,10 +15,45 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 3. **Apply** — orchestrator dispatches agent team to implement in parallel, review, and verify
 4. **Archive** — sync specs and move completed change to archive
 
+## Prerequisites
+
+Enable Agent Teams (required for multi-agent dispatch):
+
+```jsonc
+// ~/.claude/settings.json
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  }
+}
+```
+
 ## Install
 
+**Step 1** — open Claude Code:
+
 ```bash
-claude /install-plugin eli-workflow
+claude
+```
+
+**Step 2** — add the marketplace (one-time):
+
+```
+/plugin marketplace add bingeli1379/eli-workflow
+```
+
+**Step 3** — install the plugin:
+
+```
+/plugin install eli-workflow@eli-workflow --scope local
+```
+
+**Step 4** — restart Claude Code to load the plugin.
+
+## Uninstall
+
+```
+/plugin uninstall eli-workflow@eli-workflow --scope local
 ```
 
 ## Usage
