@@ -7,9 +7,9 @@ description: >
 user-invocable: true
 ---
 
-Implement tasks from a spec change. Reads all spec artifacts, prepares context, then launches the orchestrator agent to coordinate the team.
+Implement tasks from a spec change. Reads all spec artifacts, prepares context, then **becomes the orchestrator** — the main Claude assumes the orchestrator role directly so the user can interact naturally via chat.
 
-**IMPORTANT**: This skill does NOT ask questions during implementation. All requirements should be fully specified in the spec artifacts. If specs are incomplete, suggest running `/eli-validate` first.
+**IMPORTANT**: Specs are the single source of truth. If specs are incomplete, suggest running `/eli-validate` first.
 
 ---
 
@@ -64,39 +64,29 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - Frontend - Search Page (5 tasks)
    ```
 
-5. **Launch the orchestrator agent**
+5. **Become the orchestrator**
 
-   Use the **Agent** tool to spawn the orchestrator as a **named, foreground agent**:
-   - `name`: `"orchestrator"`
-   - `subagent_type`: `"eli-workflow:orchestrator"`
+   Read `agents/orchestrator.md` to load the orchestrator role definition. **You are now the orchestrator.** Do NOT spawn a separate orchestrator agent — you act as the orchestrator directly in the main conversation.
 
-   Pass ALL the context you read in Step 3 as the agent prompt:
+   This means:
+   - The user can talk to you naturally at any time
+   - You dispatch worker agents in the **background** (`run_in_background: true`)
+   - You track progress and report back as agents complete
+   - The user can ask for status, reprioritize, or give you new instructions mid-flight
+
+   Announce to the user:
+   ```
+   Orchestrator ready. Dispatching agents now.
+   You can talk to me anytime — ask for progress, reprioritize tasks, or adjust the plan.
+   ```
+
+6. **Dispatch worker agents (following orchestrator.md rules)**
+
+   Follow the dispatch rules from `agents/orchestrator.md` (Spec-Driven Mode), but with these adaptations:
+
+   **Agent Prompt Template** — compose each worker agent's prompt with:
 
    ```
-   You are the orchestrator for change "<change-name>".
-
-   ## Spec Artifacts
-
-   ### Proposal
-   [full proposal.md content]
-
-   ### Design
-   [full design.md content]
-
-   ### Tasks
-   [full tasks.md content]
-
-   ### Specs
-   [all spec files content, labeled by capability]
-
-   ### Project Config
-   [config.yaml content, including lint_commands]
-
-   ## Agent Prompt Template
-
-   When dispatching agents, compose their prompt with:
-
-   """
    You are working on change "<change-name>".
 
    ## Your Role
@@ -109,10 +99,10 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    [relevant sections from design.md]
 
    ## Your Specs (Acceptance Criteria)
-   [relevant spec files]
+   [relevant spec files — only the ones relevant to this agent's tasks]
 
    ## Your Tasks
-   [specific tasks from tasks.md for this group]
+   [specific tasks from tasks.md for this agent]
 
    ## Lint Commands (from config.yaml)
    [lint_commands list, or "none configured" if empty]
@@ -129,27 +119,53 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - After the commit, report back: "DONE: <task-number> <task-description>"
    - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
    - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
-   """
-
-   ## Your Instructions
-   Begin implementing now. Follow your Spec-Driven Mode dispatch process.
    ```
 
-6. **After orchestrator completes, verify and report**
+   **Dispatch rules:**
+   - Use the **Agent** tool with `run_in_background: true` for ALL worker agents
+   - Give each agent a descriptive `name` (e.g., `"vue-engineer-group1"`, `"dotnet-engineer-search"`)
+   - Dispatch agents that can run in parallel **simultaneously** (multiple Agent calls in one message)
+   - For sequential phases (e.g., review after implementation), wait for background agents to complete before dispatching the next phase
+   - You will be **automatically notified** when each background agent completes — do NOT poll or sleep
 
-   When the orchestrator agent returns:
-   - Read `tasks.md` and verify all completed tasks are checked `- [x]`
+   **Phase execution (mandatory, in order):**
+
+   - **Phase 1 — Parallel development**: Dispatch all implementation agents in background
+   - **Phase 2 — Code Review + Security Review**: After Phase 1 completes, dispatch review-engineer + security-engineer in background (parallel)
+   - **Phase 3 — E2E Verification**: After reviews pass, dispatch qa-engineer in background
+   - **Phase 4 — Documentation**: After QA passes, dispatch technical-writer in background
+
+   If review or QA fails: dispatch the responsible agent to fix, then re-verify (max 2 retries). Only pause and report to user if still failing.
+
+7. **Interactive control — respond to user messages**
+
+   While agents are running in the background, you remain available in the main conversation. Respond to user messages:
+
+   - **"status" / "進度"** — show current phase, which agents are running, which tasks are done
+   - **"pause" / "暫停"** — stop dispatching new agents (already-running agents will finish)
+   - **"skip <task>"** — mark a task as skipped and continue
+   - **"dispatch <agent> <instruction>"** — manually dispatch a specific agent with custom instructions
+   - **"reprioritize"** — re-read tasks.md and adjust dispatch order
+   - **Any other message** — interpret as orchestrator instruction and act accordingly
+
+   When a background agent completes, announce briefly:
+   ```
+   [agent-name] completed: <summary of what was done>
+   Progress: N/M tasks
+   ```
+
+8. **After all phases complete, verify and report**
+
+   - Re-read `tasks.md` and verify all completed tasks are checked `- [x]`
    - If any completed task was missed, update it now as a safety net
-   - Calculate total duration from when the orchestrator was launched
-   - Show final status (see templates below)
+   - Show final status:
 
    **On completion:**
    ```
    ## Implementation Complete
 
    **Change:** <change-name>
-   **Progress:** M/M tasks complete ✓
-   **Duration:** Xh Ym
+   **Progress:** M/M tasks complete
 
    ### Completed This Session
    - [x] 1.1 Task description
@@ -174,20 +190,12 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    **Change:** <change-name>
    **Progress:** N/M tasks complete
-   **Duration:** Xh Ym
 
    ### Issue Encountered
    <description of the issue>
 
-   ### Code Review Feedback (if applicable)
-   [Must Fix items from reviewer]
-
-   ### Security Review Feedback (if applicable)
-   [Security issues found]
-
-   ### E2E Failures (if applicable)
-   [Failed spec scenarios with responsible agent identified]
-   [Retry attempts: N/2]
+   ### Remaining Tasks
+   [list of pending tasks]
 
    **Options:**
    1. Fix issues and re-run `/eli-apply <name>`
@@ -197,22 +205,14 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    What would you like to do?
    ```
 
-7. **User can interact with orchestrator at any time**
-
-   The orchestrator agent is named `"orchestrator"`. While it is running, the user can send messages to it via `SendMessage(to: "orchestrator")` to:
-   - Ask for progress updates
-   - Reprioritize tasks
-   - Ask it to dispatch a specific agent
-   - Pause or adjust the plan
-
-   Tell the user: "Orchestrator is running as **orchestrator**. You can talk to it anytime."
-
 ---
 
 ## Guardrails
 
-- **Avoid asking questions during implementation** — specs are the single source of truth. Only ask if something is truly blocking and cannot be reasonably inferred (e.g., missing critical config, ambiguous spec that could go two completely different directions). When in doubt, make a reasonable decision and flag it in the report.
-- Always read ALL context files before launching the orchestrator
+- **You ARE the orchestrator** — do NOT spawn a separate orchestrator agent. You dispatch worker agents directly.
+- **All worker agents run in background** (`run_in_background: true`) — this keeps the main conversation responsive to user input.
+- **Specs are the single source of truth** — avoid asking questions unless something is truly blocking and cannot be reasonably inferred. When in doubt, make a reasonable decision and flag it in the report.
+- Always read ALL context files before dispatching agents
 - Only dispatch agents for PENDING tasks (skip completed `- [x]` tasks)
 - Agents MUST update the task checkbox in `tasks.md`, run lint commands, and include everything in the same commit — one atomic commit per task
 - If `lint_commands` are configured in `config.yaml`, agents MUST run them before every commit — no exceptions
@@ -221,5 +221,6 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 - **One commit per task** — each task gets its own commit using Conventional Commits: `<type>: <task-number> <description>`
 - Work on the current branch — do NOT create or switch branches
 - Code review and QA are mandatory steps — do NOT skip them
-- If review or QA fails, orchestrator auto-dispatches fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.
+- If review or QA fails, auto-dispatch fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.
 - Pass only RELEVANT specs to each agent (not all specs) to keep context focused
+- When background agents complete, briefly announce results to the user — don't wait for them to ask

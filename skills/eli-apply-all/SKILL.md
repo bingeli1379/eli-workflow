@@ -6,7 +6,7 @@ description: >
 user-invocable: true
 ---
 
-Run `/eli-apply` on multiple changes sequentially. Designed for unattended execution — confirm the order once, then let it run through all changes automatically.
+Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orchestrator for the entire batch — dispatching worker agents in the background while remaining responsive to user messages.
 
 ---
 
@@ -42,7 +42,7 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
    ```
 
    Use **AskUserQuestion** to let the user confirm or reorder.
-   This is the **only** question asked — after this, everything runs unattended.
+   This is the **only** question asked — after confirmation, execution begins automatically.
 
 3. **Run each change sequentially**
 
@@ -57,19 +57,25 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
 
    b. Record start time for this change.
 
-   c. Execute the full `/eli-apply` logic for this change in **unattended mode**:
-      - The change name is already known — do NOT use AskUserQuestion to select it
+   c. Execute the full `/eli-apply` logic for this change (Steps 3-8 from `eli-apply/SKILL.md`):
       - Read context files
-      - Launch orchestrator agent
-      - Wait for completion
-      - Verify checkboxes
-      - **Do NOT ask any questions** — if something would normally pause and ask the user, instead record the issue and move on
+      - Parse tasks
+      - **Act as orchestrator directly** — dispatch worker agents in background
+      - Follow all phases (implementation → review → QA → docs)
+      - Verify checkboxes after completion
+      - **Do NOT ask questions about implementation decisions** — make reasonable choices and flag ambiguities in the report
 
    d. Record end time. Calculate duration for this change.
 
    e. Record the result: COMPLETE or PAUSED (with reason)
 
-   f. **If a change pauses (review/QA failure after retries):**
+   f. Announce change result briefly, then **automatically proceed to next change**:
+   ```
+   [N/M] <change-name>: COMPLETE (8/8 tasks, 25m)
+   Proceeding to next change...
+   ```
+
+   g. **If a change pauses (review/QA failure after retries):**
       - Record the failure reason
       - **Continue to the next change** — do NOT stop the entire batch
       - The user can fix paused changes later with `/eli-apply <name>`
@@ -94,11 +100,39 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
 
 ---
 
+## Interactive Control
+
+While the batch is running, the user can send messages at any time. Respond to them:
+
+- **"status" / "進度"** — show batch progress: which change is active, current phase, running agents, overall N/M changes
+- **"skip" / "跳過"** — skip the current change, move to next
+- **"stop" / "停止"** — stop dispatching new agents/changes after current agents finish, show partial report
+- **"skip <change-name>"** — remove a specific upcoming change from the queue
+- **Any other message** — interpret as orchestrator instruction for the current change
+
+After responding to the user, **resume batch execution automatically** — do NOT wait for further input.
+
+Example interaction:
+```
+User: 進度？
+You:  ## Batch Progress
+      [2/3] Currently applying: add-user-profile
+      Phase 1: vue-engineer running (2/3 tasks done), dotnet-engineer completed
+      Overall: 1/3 changes complete
+
+      (continuing...)
+```
+
+---
+
 ## Guardrails
 
-- Ask the user to confirm execution order **once** — then run everything unattended
-- **NEVER ask questions after the batch starts** — no AskUserQuestion, no "What would you like to do?", no pausing for input. If an issue occurs, record it and move to the next change.
-- Do NOT stop the batch if one change fails — skip it and continue
+- **You ARE the orchestrator** for the entire batch — do NOT spawn a separate orchestrator agent
+- **All worker agents run in background** (`run_in_background: true`)
+- Ask the user to confirm execution order **once** — then run automatically
+- **Do NOT ask implementation questions** — make reasonable decisions and flag ambiguities in the report
+- **Do NOT stop the batch if one change fails** — skip it and continue to next
+- **After responding to user messages, resume automatically** — never wait for follow-up input unless the user explicitly says "stop"
 - Each change follows the full `/eli-apply` pipeline (all phases mandatory)
 - Each change runs on the current branch — do NOT create or switch branches
 - If a change has no pending tasks (all `- [x]`), skip it and note in the report
