@@ -105,6 +105,13 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - If the user's description is already detailed and unambiguous, confirm the scope briefly and proceed
    - After the user responds, incorporate their answers before generating artifacts
 
+   **e. If user agrees to split** — generate all changes sequentially in this same session:
+   - Scope and boundaries for ALL changes were already defined in step 5c/5d, so no further questions needed
+   - For each sub-change, run Step 6 (generate artifacts) in order
+   - Generate them **sequentially, not in parallel** — earlier changes inform later ones (shared types, API boundaries, domain model consistency)
+   - After all changes are generated, show a combined summary listing all created changes
+   - The user can then run `/eli-apply-all` to implement them in batch
+
 6. **Generate artifacts in dependency order**
 
    Generate each artifact following the templates in this skill's `templates/` directory. The dependency order is:
