@@ -7,7 +7,7 @@ user-invocable: true
 license: MIT
 metadata:
   author: Eli
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 Archive a completed change. Verifies completion status, offers to sync delta specs to main specs, then moves the change to the archive.

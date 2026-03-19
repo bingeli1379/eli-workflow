@@ -8,7 +8,7 @@ user-invocable: true
 license: MIT
 metadata:
   author: Eli
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 Generate a complete set of spec artifacts for a new change — proposal, design, specs, and tasks — all in one step. Follows **SDD (Spec-Driven Development)** with **DDD (Domain-Driven Design)** domain modeling.

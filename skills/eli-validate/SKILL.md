@@ -8,7 +8,7 @@ user-invocable: true
 license: MIT
 metadata:
   author: Eli
-  version: "0.3.0"
+  version: "0.4.0"
 ---
 
 Validate spec artifacts for a change. Checks structural completeness, content quality, and referential integrity. All violations are errors — any failure blocks implementation.
