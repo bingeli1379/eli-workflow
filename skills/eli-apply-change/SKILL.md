@@ -8,7 +8,7 @@ user-invocable: false
 license: MIT
 metadata:
   author: Eli
-  version: "0.1.0"
+  version: "0.2.0"
 ---
 
 Implement tasks from a spec change. Reads all spec artifacts and dispatches tasks to the appropriate specialized agents through the orchestrator.
