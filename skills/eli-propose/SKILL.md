@@ -78,14 +78,22 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - Capabilities must use kebab-case names (these become `specs/<name>/` directories)
    - Impact should clearly indicate which layers are affected (Backend, Frontend, API, Database, etc.)
 
-   **b. design.md** (acts as the **Architect's output** — defines everything needed for parallel development)
-   - Read proposal.md first
-   - Fill in Context, Goals/Non-Goals, Decisions (with alternatives considered), Risks/Trade-offs
-   - **Domain Model (DDD)**: Identify bounded contexts, aggregates (root + children + invariants), value objects, domain events. This drives the backend domain layer design.
-   - **API Contract**: Define every endpoint (METHOD, path, request/response schema, status codes, auth). This is the contract that enables frontend and backend to develop in parallel.
-   - **Shared Types**: Define TypeScript interfaces and C# DTOs that both sides must agree on. These serve as the integration contract.
-   - Each decision should justify the chosen approach and explain why alternatives were rejected
-   - Risks should include mitigation strategies
+   **b. design.md** — dispatch to **architect agent** (`agents/architect.md`)
+
+   Use the **Agent** tool to spawn the architect agent with:
+   - `subagent_type`: `"eli-workflow:architect"`
+   - Prompt: the proposal.md content, project context from config.yaml, existing specs from `eli-spec/specs/`, and the design.md template from `templates/`
+   - Instruct the architect to write `design.md` directly to `eli-spec/changes/<name>/design.md`
+
+   The architect agent will produce:
+   - Context, Goals/Non-Goals, Decisions (with alternatives considered), Risks/Trade-offs
+   - **Domain Model (DDD)**: Bounded contexts, aggregates (root + children + invariants), value objects, domain events
+   - **API Contract**: Every endpoint (METHOD, path, request/response schema, status codes, auth)
+   - **Shared Types**: TypeScript interfaces and C# DTOs as integration contract
+   - Each decision with justification and rejected alternatives
+   - Risks with mitigation strategies
+
+   Wait for the architect agent to complete, then read the generated `design.md` before proceeding to specs.
 
    **c. specs/<capability>/spec.md** (one per capability from proposal)
    - Read proposal.md and design.md first
@@ -97,26 +105,30 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 
    **d. tasks.md** (follows **TDD** — Red/Green/Refactor cycle)
    - Read proposal.md, design.md, and all specs first
-   - Group tasks by agent type with clear prefixes:
-     - `Backend - [Area]` → dispatches to dotnet-engineer agent (includes unit tests, TDD style)
-     - `Frontend - [Area]` → dispatches to vue-engineer agent (includes unit tests, TDD style)
-     - `Electron - [Area]` → dispatches to electron-engineer agent (main process, IPC, preload, packaging)
-     - `Database - [Area]` → dispatches to database-engineer agent (schema, migration, indexing)
-     - `DevOps - [Area]` → dispatches to devops-engineer agent (Docker, CI/CD, K8s)
-     - `Performance - [Area]` → dispatches to performance-engineer agent
-     - `Security - [Area]` → dispatches to security-engineer agent (security audit, hardening)
-     - `Documentation - [Area]` → dispatches to technical-writer agent (API docs, changelog, ADR)
-     - `E2E - [Area]` → dispatches to qa-engineer agent (Playwright E2E tests for AC verification)
-     - `Integration` → orchestrator coordinates multi-agent work
-   - **TDD task structure for Backend/Frontend groups**: Each feature should follow RED → GREEN → REFACTOR:
+   - **Group by feature/phase**, NOT by agent type. Each group is an independent functional unit (e.g., `User Search`, `Search Suggestions`).
+     - GOOD: `## 1. User Search` (contains Backend + Frontend + E2E tasks)
+     - BAD: `## 1. Backend - All` (groups by agent, blocks parallelism)
+   - **Tag each task with an agent type** in parentheses:
+     - `(Backend)` → dotnet-engineer (includes unit tests, TDD style)
+     - `(Frontend)` → vue-engineer (includes unit tests, TDD style)
+     - `(Electron)` → electron-engineer (main process, IPC, preload, packaging)
+     - `(Database)` → database-engineer (schema, migration, indexing)
+     - `(DevOps)` → devops-engineer (Docker, CI/CD, K8s)
+     - `(Performance)` → performance-engineer
+     - `(Security)` → security-engineer (security audit, hardening)
+     - `(Documentation)` → technical-writer (API docs, changelog, ADR)
+     - `(E2E)` → qa-engineer (Playwright E2E tests for AC verification)
+   - The orchestrator reads agent tags and dispatches **multiple agents per group** in parallel (e.g., Backend + Frontend + E2E agents all work on the same group concurrently).
+   - **TDD task structure for Backend/Frontend tasks**: Each feature should follow RED → GREEN → REFACTOR:
      1. Write failing unit test first (RED)
      2. Implement minimum code to pass (GREEN)
      3. Refactor if needed (REFACTOR)
-   - **E2E group**: Each spec WHEN/THEN scenario becomes a Playwright E2E test case
+   - **E2E tasks**: Each spec WHEN/THEN scenario becomes a Playwright E2E test case
    - Each task: starts with a verb, actionable, scoped to one logical unit
-   - Use numbered groups and sub-items: `## 1. Backend - Search API` → `- [ ] 1.1 Write unit test for ...`
+   - Use numbered groups and sub-items: `## 1. User Search` → `- [ ] 1.1 (Backend) Write unit test for ...`
    - Tasks must cover ALL requirements from specs — every spec scenario should be traceable to at least one task
-   - **Do NOT create `Test` groups** — unit tests belong inside Backend/Frontend groups; E2E tests are in `E2E` groups
+   - **Do NOT create `Test` groups** — unit tests belong inside Backend/Frontend tasks; E2E tests are tagged `(E2E)`
+   - **Keep groups independent** — if two groups have cross-dependencies, note the dependency order but prefer designing them to be parallelizable
 
 6. **If an artifact requires user input** (unclear context, ambiguous requirements):
    - Use **AskUserQuestion tool** to clarify
@@ -155,7 +167,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 - Create ALL 4 artifact types (proposal, design, specs, tasks). Do NOT skip any.
 - Always read dependency artifacts before creating the next one
 - Capability names in proposal MUST match `specs/<name>/` directory names exactly
-- Tasks MUST be grouped with clear agent-type prefixes (Backend/Frontend/Electron/Database/DevOps/Performance/Security/Documentation/E2E/Integration)
+- Tasks MUST be grouped by feature/phase, with each task tagged by agent type in parentheses: `(Backend)`, `(Frontend)`, `(E2E)`, etc.
 - Every spec requirement MUST have SHALL/MUST and at least 2 WHEN/THEN scenarios (happy path + edge case)
 - If context is critically unclear, ask the user — but prefer making reasonable decisions to keep momentum
 - Verify each artifact file exists after writing before proceeding to next

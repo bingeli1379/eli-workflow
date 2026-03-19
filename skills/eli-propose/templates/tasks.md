@@ -1,26 +1,23 @@
-<!-- Task groups map to agent dispatch. Valid group prefixes: -->
-<!-- "Backend" / "Frontend" / "Electron" / "E2E" / "Integration" -->
-<!-- Each task: actionable, starts with a verb, scoped to one unit of work. -->
-<!-- NOTE: Unit tests are included within Backend/Frontend groups (TDD). -->
-<!-- E2E tests are a separate group dispatched to QA agent. -->
+<!-- Task groups are organized by feature/phase, NOT by agent type. -->
+<!-- Each task is tagged with an agent type in parentheses: (Backend), (Frontend), (E2E), etc. -->
+<!-- The orchestrator dispatches multiple agents per group when tasks have different agent tags. -->
+<!-- Valid agent tags: Backend, Frontend, Electron, Database, DevOps, Performance, Security, Documentation, E2E -->
+<!-- NOTE: Unit tests are included within Backend/Frontend tasks (TDD). -->
 
-## 1. Backend - [Feature Area]
+<!-- Example: a "User Search" feature -->
 
-- [ ] 1.1 Write unit test for [description] (RED)
-- [ ] 1.2 Implement [description] to pass test (GREEN)
-- [ ] 1.3 Refactor [description] if needed (REFACTOR)
+## 1. User Search
 
-## 2. Frontend - [Feature Area]
+- [ ] 1.1 (Backend) Write unit test for search endpoint (RED)
+- [ ] 1.2 (Backend) Implement search endpoint to pass test (GREEN)
+- [ ] 1.3 (Frontend) Write unit test for SearchPage (RED)
+- [ ] 1.4 (Frontend) Implement SearchPage to pass test (GREEN)
+- [ ] 1.5 (E2E) Write E2E test for user searches by keyword
 
-- [ ] 2.1 Write unit test for [description] (RED)
-- [ ] 2.2 Implement [description] to pass test (GREEN)
-- [ ] 2.3 Refactor [description] if needed (REFACTOR)
+## 2. Search Suggestions
 
-## 3. E2E - [Acceptance Criteria Area]
-
-- [ ] 3.1 Write E2E test for [spec scenario WHEN/THEN]
-- [ ] 3.2 Write E2E test for [spec scenario WHEN/THEN]
-
-## 4. Integration
-
-- [ ] 4.1 [Verb] [description]
+- [ ] 2.1 (Backend) Write unit test for suggestions endpoint (RED)
+- [ ] 2.2 (Backend) Implement suggestions endpoint to pass test (GREEN)
+- [ ] 2.3 (Frontend) Write unit test for SearchSuggestions composable (RED)
+- [ ] 2.4 (Frontend) Implement SearchSuggestions composable to pass test (GREEN)
+- [ ] 2.5 (E2E) Write E2E test for autocomplete suggestions

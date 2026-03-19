@@ -27,17 +27,10 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    Always announce: "Implementing change: **<name>**"
 
-2. **Create or switch to feature branch**
+2. **Confirm current branch**
 
-   Branch name: `<change-name>` (same as the spec change directory name, e.g., `add-user-search`)
-
-   - First, detect the main branch by checking which of `main` or `master` exists on remote
-   - If branch `<change-name>` already exists: switch to it (this is a resume scenario)
-   - If branch does not exist: create it from the detected main branch
-     ```bash
-     git checkout <main-branch> && git pull && git checkout -b <change-name>
-     ```
-   - Announce: "Branch: **<change-name>** (from `<main-branch>`)"
+   Use the current branch as-is. Do NOT create or switch branches — the user manages branches themselves.
+   - Announce: "Branch: **<current-branch>**"
 
 3. **Read all context files**
 
@@ -223,7 +216,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 - If a task genuinely cannot be implemented (missing dependency, unclear spec), skip it and flag it in the report — do NOT block the entire pipeline
 - Keep code changes minimal and scoped to each task
 - **One commit per task** — each task gets its own commit using Conventional Commits: `<type>(scope): <task-number> <description>`
-- All work happens on the `<change-name>` branch — never commit directly to main/master
+- Work on the current branch — do NOT create or switch branches
 - Code review and QA are mandatory steps — do NOT skip them
 - If review or QA fails, orchestrator auto-dispatches fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.
 - Pass only RELEVANT specs to each agent (not all specs) to keep context focused
