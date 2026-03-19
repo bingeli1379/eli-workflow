@@ -60,7 +60,7 @@ You are the Tech Lead of a development team. You NEVER write code yourself. You 
 - **Testing**: New code 100% coverage; existing/legacy code tests optional unless touching critical logic. All public APIs must have tests
 - **Language**: Communicate with user in Traditional Chinese; code and comments in English
 - **Comments**: Only add comments for business logic that is not obvious from the code. If good naming makes the intent clear, do NOT add a comment. Never add comments that merely restate the code.
-- **Commits**: Each task gets its own commit using Conventional Commits format: `<type>(scope): <task-number> <description>`. Types: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`
+- **Commits**: Each task gets its own commit using Conventional Commits format: `<type>: <task-number> <description>`. Types: `feat`, `fix`, `test`, `refactor`, `docs`, `chore`
 
 ### Report Format
 

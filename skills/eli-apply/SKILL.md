@@ -124,7 +124,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - **After completing each task**, you MUST:
      1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
      2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
-     3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>(scope): <task-number> <description>` (e.g., `feat(domain): 1.1 add UserSearch entity`)
+     3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`)
    - Do NOT batch multiple tasks into one commit
    - After the commit, report back: "DONE: <task-number> <task-description>"
    - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
@@ -215,7 +215,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 - If `lint_commands` are configured in `config.yaml`, agents MUST run them before every commit — no exceptions
 - If a task genuinely cannot be implemented (missing dependency, unclear spec), skip it and flag it in the report — do NOT block the entire pipeline
 - Keep code changes minimal and scoped to each task
-- **One commit per task** — each task gets its own commit using Conventional Commits: `<type>(scope): <task-number> <description>`
+- **One commit per task** — each task gets its own commit using Conventional Commits: `<type>: <task-number> <description>`
 - Work on the current branch — do NOT create or switch branches
 - Code review and QA are mandatory steps — do NOT skip them
 - If review or QA fails, orchestrator auto-dispatches fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.

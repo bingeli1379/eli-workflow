@@ -144,4 +144,4 @@ Phase 4: Documentation
 - **Unit Tests**: Written by frontend/backend agents themselves (TDD), new code 100% coverage
 - **E2E Tests**: Written by QA agent with Playwright, verifies all spec WHEN/THEN scenarios
 - **Language**: Traditional Chinese communication, English code and comments
-- **Commits**: Each task = one commit, using Conventional Commits: `<type>(scope): <task-number> <description>`
+- **Commits**: Each task = one commit, using Conventional Commits: `<type>: <task-number> <description>`
