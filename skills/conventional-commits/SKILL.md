@@ -84,6 +84,12 @@ These types come from [@commitlint/config-conventional](https://github.com/conve
 | `chore`  | Changes not modifying src or test files | `chore: update .gitignore`    |
 | `revert` | Reverts a previous commit               | `revert: feat: add user auth` |
 
+### Project-Specific Types
+
+| Type   | Description                                                    | Example                                    |
+| ------ | -------------------------------------------------------------- | ------------------------------------------ |
+| `spec` | Spec artifact changes (proposal, design, tasks, delta specs)   | `spec: add proposal for user-auth change`  |
+
 **Note**: Teams can define custom types beyond `feat` and `fix`, but Angular convention types are widely supported by tooling.
 
 ## Specification Rules
@@ -233,7 +239,7 @@ flowchart TD
 ### Header Validation Regex
 
 ```regex
-^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\(.+\))?!?:\s.+$
+^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|spec)(\(.+\))?!?:\s.+$
 ```
 
 ### Python Validation Example
@@ -242,7 +248,7 @@ flowchart TD
 import re
 
 CONVENTIONAL_COMMIT_PATTERN = re.compile(
-    r'^(?P<type>feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)'
+    r'^(?P<type>feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert|spec)'
     r'(?:\((?P<scope>[^)]+)\))?'
     r'(?P<breaking>!)?'
     r':\s'
