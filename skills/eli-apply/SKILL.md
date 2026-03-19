@@ -119,6 +119,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - After the commit, report back: "DONE: <task-number> <task-description>"
    - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
    - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
+   - **Language**: All output and reports MUST be in Traditional Chinese. Code and code comments MUST be in English.
    ```
 
    **Dispatch rules:**
