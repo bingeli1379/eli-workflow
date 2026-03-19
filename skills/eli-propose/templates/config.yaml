@@ -1,0 +1,23 @@
+# eli-spec project configuration
+# This file provides context to /eli:propose when generating artifacts.
+
+# Project context: tech stack, conventions, domain knowledge
+# This is shown to AI when creating artifacts.
+# Example:
+#   context: |
+#     Tech stack: TypeScript, Vue 3, Nuxt 4, ASP.NET Core .NET 8+
+#     We use conventional commits
+#     Domain: e-commerce platform
+#     Frontend follows Atomic Design + Composable Pattern
+#     Backend follows Clean Architecture
+
+# Per-artifact rules (optional)
+# Add custom rules for specific artifacts.
+# Example:
+#   rules:
+#     proposal:
+#       - Keep proposals concise and focused
+#       - Always include a "Non-goals" section in design
+#     tasks:
+#       - Break tasks into chunks of max 2 hours
+#       - Group tasks by agent type (Backend/Frontend/Integration)
