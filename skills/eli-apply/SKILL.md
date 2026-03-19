@@ -140,6 +140,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    When the orchestrator agent returns:
    - Read `tasks.md` and verify all completed tasks are checked `- [x]`
    - If any completed task was missed, update it now as a safety net
+   - Calculate total duration from when the orchestrator was launched
    - Show final status (see templates below)
 
    **On completion:**
@@ -148,6 +149,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    **Change:** <change-name>
    **Progress:** M/M tasks complete ✓
+   **Duration:** Xh Ym
 
    ### Completed This Session
    - [x] 1.1 Task description
@@ -172,6 +174,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    **Change:** <change-name>
    **Progress:** N/M tasks complete
+   **Duration:** Xh Ym
 
    ### Issue Encountered
    <description of the issue>
@@ -208,7 +211,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
 ## Guardrails
 
-- **Never ask questions during implementation** — specs are the single source of truth
+- **Avoid asking questions during implementation** — specs are the single source of truth. Only ask if something is truly blocking and cannot be reasonably inferred (e.g., missing critical config, ambiguous spec that could go two completely different directions). When in doubt, make a reasonable decision and flag it in the report.
 - Always read ALL context files before launching the orchestrator
 - Only dispatch agents for PENDING tasks (skip completed `- [x]` tasks)
 - Agents MUST update the task checkbox in `tasks.md`, run lint commands, and include everything in the same commit — one atomic commit per task

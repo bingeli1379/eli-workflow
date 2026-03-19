@@ -55,16 +55,22 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    ```
 
-   b. Execute the full `/eli-apply` logic for this change:
+   b. Record start time for this change.
+
+   c. Execute the full `/eli-apply` logic for this change in **unattended mode**:
+      - The change name is already known — do NOT use AskUserQuestion to select it
       - Read context files
       - Launch orchestrator agent
       - Wait for completion
       - Verify checkboxes
+      - **Do NOT ask any questions** — if something would normally pause and ask the user, instead record the issue and move on
 
-   c. Record the result: COMPLETE or PAUSED (with reason)
+   d. Record end time. Calculate duration for this change.
 
-   d. **If a change pauses (review/QA failure after retries):**
-      - Record the failure
+   e. Record the result: COMPLETE or PAUSED (with reason)
+
+   f. **If a change pauses (review/QA failure after retries):**
+      - Record the failure reason
       - **Continue to the next change** — do NOT stop the entire batch
       - The user can fix paused changes later with `/eli-apply <name>`
 
@@ -73,10 +79,12 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
    ```
    ## Batch Apply Complete
 
+   **Total duration:** Xh Ym
+
    **Results:**
-   - [x] add-user-registration — COMPLETE (8/8 tasks)
-   - [ ] add-user-profile — PAUSED (code review failed after 2 retries)
-   - [x] add-user-roles — COMPLETE (4/4 tasks)
+   - [x] add-user-registration — COMPLETE (8/8 tasks, 25m)
+   - [ ] add-user-profile — PAUSED (code review failed after 2 retries, 18m)
+   - [x] add-user-roles — COMPLETE (4/4 tasks, 12m)
 
    **Summary:** 2/3 changes completed, 1 paused
 
@@ -89,7 +97,9 @@ Run `/eli-apply` on multiple changes sequentially. Designed for unattended execu
 ## Guardrails
 
 - Ask the user to confirm execution order **once** — then run everything unattended
+- **NEVER ask questions after the batch starts** — no AskUserQuestion, no "What would you like to do?", no pausing for input. If an issue occurs, record it and move to the next change.
 - Do NOT stop the batch if one change fails — skip it and continue
 - Each change follows the full `/eli-apply` pipeline (all phases mandatory)
 - Each change runs on the current branch — do NOT create or switch branches
 - If a change has no pending tasks (all `- [x]`), skip it and note in the report
+- Track and report duration for each change and total batch time
