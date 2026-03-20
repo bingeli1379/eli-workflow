@@ -57,7 +57,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
 
    b. Record start time for this change.
 
-   c. Execute the full `/eli-apply` logic for this change (Steps 3-8 from `eli-apply/SKILL.md`):
+   c. Execute the full `/eli-apply` logic for this change (Steps 3-9 from `eli-apply/SKILL.md`):
       - Read context files
       - Parse tasks
       - **Act as orchestrator directly** — dispatch worker agents in background

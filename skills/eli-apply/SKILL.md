@@ -32,7 +32,18 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    Use the current branch as-is. Do NOT create or switch branches — the user manages branches themselves.
    - Announce: "Branch: **<current-branch>**"
 
-3. **Read all context files**
+3. **Pre-lint and commit (clean slate)**
+
+   If `lint_commands` are configured in `eli-spec/config.yaml`:
+   1. Run all lint commands to fix any pre-existing formatting issues
+   2. Check `git status` — if there are any changes produced by linting:
+      - Stage all changed files
+      - Commit with message: `chore: pre-lint cleanup before eli-apply`
+   3. If no changes, skip silently
+
+   This ensures agents start from a clean state and their lint runs won't pick up unrelated formatting changes.
+
+4. **Read all context files**
 
    Read these files from `eli-spec/changes/<name>/`:
    - `proposal.md` — scope and capabilities
@@ -48,7 +59,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - Suggest: "Run `/eli-validate <name>` to check completeness, or `/eli-propose` to generate missing artifacts."
    - Stop.
 
-4. **Parse tasks and show progress**
+5. **Parse tasks and show progress**
 
    Parse `tasks.md`:
    - Identify task groups (## headings) and their agent mapping
@@ -64,7 +75,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - Frontend - Search Page (5 tasks)
    ```
 
-5. **Become the orchestrator**
+6. **Become the orchestrator**
 
    Read `agents/orchestrator.md` to load the orchestrator role definition. **You are now the orchestrator.** Do NOT spawn a separate orchestrator agent — you act as the orchestrator directly in the main conversation.
 
@@ -80,7 +91,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    You can talk to me anytime — ask for progress, reprioritize tasks, or adjust the plan.
    ```
 
-6. **Dispatch worker agents (following orchestrator.md rules)**
+7. **Dispatch worker agents (following orchestrator.md rules)**
 
    Follow the dispatch rules from `agents/orchestrator.md` (Spec-Driven Mode), but with these adaptations:
 
@@ -139,7 +150,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    If review or QA fails: dispatch the responsible agent to fix, then re-verify (max 2 retries). Only pause and report to user if still failing.
 
-7. **Interactive control — respond to user messages**
+8. **Interactive control — respond to user messages**
 
    While agents are running in the background, you remain available in the main conversation. Respond to user messages:
 
@@ -156,7 +167,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    Progress: N/M tasks
    ```
 
-8. **After all phases complete, verify and report**
+9. **After all phases complete, verify and report**
 
    - Re-read `tasks.md` and verify all completed tasks are checked `- [x]`
    - If any completed task was missed, update it now as a safety net
