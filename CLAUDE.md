@@ -111,10 +111,13 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 ### .NET Skills (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
 - `clean-architecture` — 4-layer layout, dependency inversion, use case handlers
 - `ef-core` — DbContext, migrations, interceptors, compiled queries, query optimization
-- `testing` — xUnit v3, WebApplicationFactory, Testcontainers, Verify, AAA pattern
 - `minimal-api` — MapGroup, TypedResults, endpoint filters, OpenAPI, rate limiting
 - `ddd` — Aggregates, value objects, domain events, strongly-typed IDs
 - `error-handling` — Result pattern, ProblemDetails (RFC 9457), FluentValidation
+- `resilience` — Polly v8 retry, circuit breaker, timeout, fallback, hedging, rate limiter (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `authentication` — JWT Bearer, ASP.NET Identity, policy-based auth, OpenID Connect (from [codewithmukesh/dotnet-claude-kit](https://github.com/codewithmukesh/dotnet-claude-kit))
+- `dotnet-grpc` — gRPC server/client, protobuf contracts, streaming, interceptors, health checks (from [managedcode/dotnet-skills](https://github.com/managedcode/dotnet-skills))
+- `dotnet-nunit` — NUnit v4, constraint-based assertions, parameterized tests, async patterns (from [managedcode/dotnet-skills](https://github.com/managedcode/dotnet-skills))
 
 ### Security Skills (from [trailofbits/skills](https://github.com/trailofbits/skills))
 - `differential-review` — Risk-first adaptive security review for PRs and diffs
@@ -141,7 +144,7 @@ Phase 4: Documentation
 ## Team Standards
 
 - **Frontend**: Vue 3 Composition API + Nuxt 4, Atomic Design, Composable Pattern, TailwindCSS, TypeScript strict
-- **Backend**: ASP.NET Core .NET 8+, Clean Architecture, EF Core, C# 12
+- **Backend**: ASP.NET Core .NET 8–10, Clean/Layered Architecture, EF Core + Dapper, Polly, Redis, C# 12–13
 - **Unit Tests**: Written by frontend/backend agents themselves (TDD), new code 100% coverage
 - **E2E Tests**: Written by QA agent with Playwright, verifies all spec WHEN/THEN scenarios
 - **Language**: Traditional Chinese communication, English code and comments

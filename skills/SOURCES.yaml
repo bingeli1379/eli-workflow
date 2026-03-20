@@ -93,9 +93,6 @@ ef-core:
 minimal-api:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/minimal-api
-testing:
-  repo: https://github.com/codewithmukesh/dotnet-claude-kit
-  path: skills/testing
 ddd:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/ddd
@@ -111,6 +108,18 @@ docker:
 ci-cd:
   repo: https://github.com/codewithmukesh/dotnet-claude-kit
   path: skills/ci-cd
+resilience:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/resilience
+authentication:
+  repo: https://github.com/codewithmukesh/dotnet-claude-kit
+  path: skills/authentication
+dotnet-grpc:
+  repo: https://github.com/managedcode/dotnet-skills
+  path: skills/dotnet-grpc
+dotnet-nunit:
+  repo: https://github.com/managedcode/dotnet-skills
+  path: skills/dotnet-nunit
 
 # Database
 sql-expert:
