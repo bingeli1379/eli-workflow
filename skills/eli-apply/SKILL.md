@@ -123,9 +123,12 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - Follow the spec scenarios as acceptance criteria
    - Follow the design decisions — do NOT deviate
    - **CRITICAL — Committing is EXPLICITLY REQUIRED by the user as part of this workflow. You are authorized and expected to commit after every task. This is NOT optional.** After completing each task, you MUST:
-     1. Stage all changed files with `git add` (specify files by name)
-     2. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
-     3. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
+     1. Stage all changed files with `git add` (specify files by name) — do NOT stage `tasks.md` yet
+     2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
+     3. Update `tasks.md` checkbox (race-condition safe — multiple agents may run in parallel):
+        - Run `git checkout tasks.md` to get the latest committed version (picks up other agents' checkboxes)
+        - Use the **Edit** tool to change ONLY your task's `- [ ]` to `- [x]` — do NOT rewrite the whole file
+        - Stage `tasks.md` with `git add`
      4. Commit ALL changes together (code + checkbox + lint fixes) following the `conventional-commits` skill (`skills/conventional-commits/SKILL.md`). Format: `<type>[optional scope]: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`, `test: 2.3 add unit tests for search service`). Choose the type that best matches the task — refer to the skill for the full type list and rules.
    - Do NOT batch multiple tasks into one commit — one commit per task, no exceptions
    - After the commit, report back: "DONE: <task-number> <task-description>"
