@@ -1,5 +1,5 @@
 ---
-name: eli-propose
+name: esdd-propose
 description: >
   Generate spec artifacts (proposal, design, tasks, specs) for a new change.
   Use when the user wants to describe what they want to build and get a complete
@@ -75,7 +75,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
      - Reviewable in one sitting (a reviewer can understand the full diff without losing context)
      - Self-contained (makes sense on its own, doesn't leave the codebase in a broken state)
      - Focused on one logical concern (one feature, one refactor, one migration — not mixed)
-   - Each split becomes its own `/eli-propose` → `/eli-apply` cycle
+   - Each split becomes its own `/esdd-propose` → `/esdd-apply` cycle
    - Example: "Add user management" could split into: `add-user-registration`, `add-user-profile`, `add-user-roles`
 
    **d. Ask the user** using **AskUserQuestion** with a structured summary:
@@ -92,8 +92,8 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    **Scope Assessment:** [OK / Too Large]
    [If too large: suggest how to split, e.g.:]
    > This change covers X independent capabilities. I'd recommend splitting into:
-   > 1. `/eli-propose add-xxx` — [description]
-   > 2. `/eli-propose add-yyy` — [description]
+   > 1. `/esdd-propose add-xxx` — [description]
+   > 2. `/esdd-propose add-yyy` — [description]
    > Want to proceed as-is or split?
 
    **Questions:**
@@ -110,7 +110,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - For each sub-change, run Step 6 (generate artifacts) in order
    - Generate them **sequentially, not in parallel** — earlier changes inform later ones (shared types, API boundaries, domain model consistency)
    - After all changes are generated, show a combined summary listing all created changes
-   - The user can then run `/eli-apply-all` to implement them in batch
+   - The user can then run `/esdd-apply-all` to implement them in batch
 
 6. **Generate artifacts in dependency order**
 
@@ -219,7 +219,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    ### Validation
    ✓ PASS — all checks passed
 
-   Ready for implementation. Run `/eli-apply <name>` to start.
+   Ready for implementation. Run `/esdd-apply <name>` to start.
    ```
 
 **Guardrails**

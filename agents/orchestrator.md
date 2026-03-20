@@ -16,7 +16,7 @@ You are the Tech Lead of a development team. You NEVER write code yourself. You 
 
 ## Your Team
 
-- **architect** (`agents/architect.md`) — Software Architect. Designs system architecture, defines API contracts. Primarily used during `/eli-propose` to produce `design.md`. During `/eli-apply`, design is already finalized — only dispatch architect if user explicitly requests architecture changes.
+- **architect** (`agents/architect.md`) — Software Architect. Designs system architecture, defines API contracts. Primarily used during `/esdd-propose` to produce `design.md`. During `/esdd-apply`, design is already finalized — only dispatch architect if user explicitly requests architecture changes.
 - **vue-engineer** (`agents/vue-engineer.md`) — Vue 3 / Nuxt specialist. Handles UI components, pages, composables, Pinia stores, styling.
 - **dotnet-engineer** (`agents/dotnet-engineer.md`) — ASP.NET Core specialist. Handles API endpoints, business logic, database, domain models, Clean Architecture.
 - **electron-engineer** (`agents/electron-engineer.md`) — Electron specialist. Handles main process, preload scripts, IPC, native OS integration, auto-update, packaging.
@@ -159,7 +159,7 @@ When invoked by `/apply`, you receive structured spec artifacts instead of a fre
 10. **Collect agent reports**:
    Agents update `tasks.md` checkboxes themselves (included in each task's commit).
    After all phases complete, compile the final report and return it to the caller.
-   `/eli-apply` verifies checkbox completeness as a safety net.
+   `/esdd-apply` verifies checkbox completeness as a safety net.
 
 ### Report Format (Spec-Driven)
 

@@ -1,5 +1,5 @@
 ---
-name: eli-apply
+name: esdd-apply
 description: >
   Implement tasks from a spec change using Agent Team dispatch.
   Use when the user wants to start or continue implementing a change.
@@ -9,11 +9,11 @@ user-invocable: true
 
 Implement tasks from a spec change. Reads all spec artifacts, prepares context, then **becomes the orchestrator** — the main Claude assumes the orchestrator role directly so the user can interact naturally via chat.
 
-**IMPORTANT**: Specs are the single source of truth. If specs are incomplete, suggest running `/eli-validate` first.
+**IMPORTANT**: Specs are the single source of truth. If specs are incomplete, suggest running `/esdd-validate` first.
 
 ---
 
-**Input**: Optionally specify a change name (e.g., `/eli-apply add-user-search`). If omitted, auto-detect.
+**Input**: Optionally specify a change name (e.g., `/esdd-apply add-user-search`). If omitted, auto-detect.
 
 **Steps**
 
@@ -23,7 +23,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - List directories under `feature-spec/changes/` (excluding `archive/`)
    - Auto-select if only one active change exists
    - If multiple, use **AskUserQuestion** to let the user choose
-   - If none exist, report error: "No active changes found. Run `/eli-propose` first."
+   - If none exist, report error: "No active changes found. Run `/esdd-propose` first."
 
    Always announce: "Implementing change: **<name>**"
 
@@ -38,7 +38,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    1. Run all lint commands to fix any pre-existing formatting issues
    2. Check `git status` — if there are any changes produced by linting:
       - Stage all changed files
-      - Commit with message: `chore: pre-lint cleanup before eli-apply`
+      - Commit with message: `chore: pre-lint cleanup before esdd-apply`
    3. If no changes, skip silently
 
    This ensures agents start from a clean state and their lint runs won't pick up unrelated formatting changes.
@@ -56,7 +56,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
    **If any required file is missing** (proposal, design, tasks, or specs):
    - Show which files are missing
-   - Suggest: "Run `/eli-validate <name>` to check completeness, or `/eli-propose` to generate missing artifacts."
+   - Suggest: "Run `/esdd-validate <name>` to check completeness, or `/esdd-propose` to generate missing artifacts."
    - Stop.
 
 5. **Parse tasks and show progress**
@@ -64,7 +64,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    Parse `tasks.md`:
    - Identify task groups (## headings) and their agent mapping
    - Count total tasks, completed (`- [x]`), and pending (`- [ ]`)
-   - If all tasks are complete: congratulate, suggest `/eli-archive <name>`
+   - If all tasks are complete: congratulate, suggest `/esdd-archive <name>`
 
    Display:
    ```
@@ -197,7 +197,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    ### E2E Acceptance
    [PASSED — X/Y spec scenarios verified via Playwright]
 
-   All tasks complete! Run `/eli-archive <name>` to archive this change.
+   All tasks complete! Run `/esdd-archive <name>` to archive this change.
    ```
 
    **On pause (issue encountered):**
@@ -214,7 +214,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    [list of pending tasks]
 
    **Options:**
-   1. Fix issues and re-run `/eli-apply <name>`
+   1. Fix issues and re-run `/esdd-apply <name>`
    2. Update specs and re-run
    3. Other approach
 

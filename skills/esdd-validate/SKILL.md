@@ -1,5 +1,5 @@
 ---
-name: eli-validate
+name: esdd-validate
 description: >
   Validate spec artifacts against structural and content rules.
   Use when the user wants to check if spec artifacts are complete and well-formed
@@ -11,7 +11,7 @@ Validate spec artifacts for a change. Checks structural completeness, content qu
 
 ---
 
-**Input**: The argument is a change name (e.g., `/eli-validate add-user-search`).
+**Input**: The argument is a change name (e.g., `/esdd-validate add-user-search`).
 
 **Steps**
 
@@ -23,7 +23,7 @@ Validate spec artifacts for a change. Checks structural completeness, content qu
    - List directories under `feature-spec/changes/` (excluding `archive/`)
    - If only one active change exists, auto-select it
    - If multiple, use **AskUserQuestion** to let the user choose
-   - If none exist, report error: "No active changes found. Run `/eli-propose` first."
+   - If none exist, report error: "No active changes found. Run `/esdd-propose` first."
 
 2. **Verify change directory exists**
 
@@ -141,7 +141,7 @@ Total tasks: N (N complete, N pending)
 OR
 
 ✓ PASS — 0 errors
-  Ready for implementation. Run `/eli-apply <name>` to start.
+  Ready for implementation. Run `/esdd-apply <name>` to start.
 ```
 
 ---
@@ -152,7 +152,7 @@ OR
 - Report ALL issues found, not just the first one per file
 - Group issues by file for readability
 - Always show the summary and verdict
-- On PASS, suggest running `/eli-apply <name>`
+- On PASS, suggest running `/esdd-apply <name>`
 - On FAIL, list specific fixes needed
 - Never modify artifact files — this is read-only validation
 - If `feature-spec/changes/<name>/` doesn't exist, show helpful error with available changes

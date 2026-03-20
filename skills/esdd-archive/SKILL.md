@@ -1,5 +1,5 @@
 ---
-name: eli-archive
+name: esdd-archive
 description: >
   Archive a completed change. Checks task completion, syncs delta specs
   to main specs, and moves the change to the archive directory.
@@ -10,7 +10,7 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 
 ---
 
-**Input**: Optionally specify a change name (e.g., `/eli-archive add-user-search`). If omitted, auto-detect.
+**Input**: Optionally specify a change name (e.g., `/esdd-archive add-user-search`). If omitted, auto-detect.
 
 **Steps**
 

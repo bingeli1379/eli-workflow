@@ -7,7 +7,7 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 ## Workflow
 
 ```
-/eli-init → /eli-propose (auto-validate) → /eli-apply → /eli-archive
+/esdd-init → /esdd-propose (auto-validate) → /esdd-apply → /esdd-archive
 ```
 
 1. **Init** — auto-detect project context, create `feature-spec/` directory
@@ -61,13 +61,13 @@ claude
 ### 1. Initialize (once per project)
 
 ```
-/eli-init
+/esdd-init
 ```
 
 ### 2. Propose a change
 
 ```
-/eli-propose add user search feature for admin dashboard
+/esdd-propose add user search feature for admin dashboard
 ```
 
 Creates `feature-spec/changes/add-user-search/` with:
@@ -81,7 +81,7 @@ Automatically validates and fixes all artifacts before completion.
 ### 3. Implement
 
 ```
-/eli-apply add-user-search
+/esdd-apply add-user-search
 ```
 
 The orchestrator dispatches agents through a 4-phase pipeline:
@@ -98,15 +98,15 @@ No questions asked — specs are the single source of truth.
 ### 3b. Batch implement (optional)
 
 ```
-/eli-apply-all add-user-registration add-user-profile add-user-roles
+/esdd-apply-all add-user-registration add-user-profile add-user-roles
 ```
 
-Runs `/eli-apply` on each change sequentially. Confirm execution order once, then unattended. Failed changes are skipped and reported at the end.
+Runs `/esdd-apply` on each change sequentially. Confirm execution order once, then unattended. Failed changes are skipped and reported at the end.
 
 ### 4. Archive
 
 ```
-/eli-archive add-user-search
+/esdd-archive add-user-search
 ```
 
 ## Agents
@@ -114,7 +114,7 @@ Runs `/eli-apply` on each change sequentially. Confirm execution order once, the
 | Agent | Role |
 |---|---|
 | `orchestrator` | Tech Lead — analyzes specs, dispatches agents, coordinates pipeline |
-| `architect` | Software Architect — system design, dispatched by `/eli-propose` for `design.md` |
+| `architect` | Software Architect — system design, dispatched by `/esdd-propose` for `design.md` |
 | `vue-engineer` | Frontend — Vue 3 / Nuxt 4, TDD, Atomic Design, TailwindCSS |
 | `dotnet-engineer` | Backend — ASP.NET Core, TDD, Clean Architecture, EF Core |
 | `electron-engineer` | Desktop — Electron main process, IPC, preload, native OS, packaging |

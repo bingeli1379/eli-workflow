@@ -188,13 +188,13 @@ conventional-commits:
   path: plugins/conventional-commits/skills/conventional-commits
 
 # Workflow core (eli-workflow original — not updatable)
-eli-init:
+esdd-init:
   repo: original
-eli-propose:
+esdd-propose:
   repo: original
-eli-validate:
+esdd-validate:
   repo: original
-eli-apply:
+esdd-apply:
   repo: original
-eli-archive:
+esdd-archive:
   repo: original

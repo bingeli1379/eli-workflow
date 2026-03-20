@@ -1,16 +1,16 @@
 ---
-name: eli-apply-all
+name: esdd-apply-all
 description: >
-  Run /eli-apply sequentially on multiple changes. Use when the user has
+  Run /esdd-apply sequentially on multiple changes. Use when the user has
   several prepared changes and wants to batch-implement them unattended.
 user-invocable: true
 ---
 
-Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orchestrator for the entire batch — dispatching worker agents in the background while remaining responsive to user messages.
+Run `/esdd-apply` on multiple changes sequentially. The main Claude acts as orchestrator for the entire batch — dispatching worker agents in the background while remaining responsive to user messages.
 
 ---
 
-**Input**: Optionally specify change names in order (e.g., `/eli-apply-all add-user-registration add-user-profile add-user-roles`). If omitted, auto-detect.
+**Input**: Optionally specify change names in order (e.g., `/esdd-apply-all add-user-registration add-user-profile add-user-roles`). If omitted, auto-detect.
 
 **Steps**
 
@@ -20,7 +20,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
    Filter to only changes that have pending tasks (`- [ ]` in `tasks.md`).
 
    If no pending changes found:
-   - Report: "No pending changes found. Run `/eli-propose` first."
+   - Report: "No pending changes found. Run `/esdd-propose` first."
    - Stop.
 
 2. **Determine execution order**
@@ -57,7 +57,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
 
    b. Record start time for this change.
 
-   c. Execute the full `/eli-apply` logic for this change (Steps 3-9 from `eli-apply/SKILL.md`):
+   c. Execute the full `/esdd-apply` logic for this change (Steps 3-9 from `esdd-apply/SKILL.md`):
       - Read context files
       - Parse tasks
       - **Act as orchestrator directly** — dispatch worker agents in background
@@ -78,7 +78,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
    g. **If a change pauses (review/QA failure after retries):**
       - Record the failure reason
       - **Continue to the next change** — do NOT stop the entire batch
-      - The user can fix paused changes later with `/eli-apply <name>`
+      - The user can fix paused changes later with `/esdd-apply <name>`
 
 4. **Show final batch report**
 
@@ -95,7 +95,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
    **Summary:** 2/3 changes completed, 1 paused
 
    **Paused changes:**
-   - `add-user-profile`: [reason]. Fix and re-run with `/eli-apply add-user-profile`
+   - `add-user-profile`: [reason]. Fix and re-run with `/esdd-apply add-user-profile`
    ```
 
 ---
@@ -133,7 +133,7 @@ You:  ## Batch Progress
 - **Do NOT ask implementation questions** — make reasonable decisions and flag ambiguities in the report
 - **Do NOT stop the batch if one change fails** — skip it and continue to next
 - **After responding to user messages, resume automatically** — never wait for follow-up input unless the user explicitly says "stop"
-- Each change follows the full `/eli-apply` pipeline (all phases mandatory)
+- Each change follows the full `/esdd-apply` pipeline (all phases mandatory)
 - Each change runs on the current branch — do NOT create or switch branches
 - If a change has no pending tasks (all `- [x]`), skip it and note in the report
 - Track and report duration for each change and total batch time
