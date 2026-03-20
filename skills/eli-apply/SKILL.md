@@ -126,7 +126,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
      1. Stage all changed files with `git add` (specify files by name)
      2. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
      3. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
-     4. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`)
+     4. Commit ALL changes together (code + checkbox + lint fixes) following the `conventional-commits` skill (`skills/conventional-commits/SKILL.md`). Format: `<type>[optional scope]: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`, `test: 2.3 add unit tests for search service`). Choose the type that best matches the task — refer to the skill for the full type list and rules.
    - Do NOT batch multiple tasks into one commit — one commit per task, no exceptions
    - After the commit, report back: "DONE: <task-number> <task-description>"
    - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
