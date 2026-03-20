@@ -16,7 +16,7 @@ Run `/eli-apply` on multiple changes sequentially. The main Claude acts as orche
 
 1. **Discover active changes**
 
-   List all directories under `eli-spec/changes/` (excluding `archive/`).
+   List all directories under `feature-spec/changes/` (excluding `archive/`).
    Filter to only changes that have pending tasks (`- [ ]` in `tasks.md`).
 
    If no pending changes found:

@@ -12,7 +12,7 @@ Spec-driven multi-agent development team plugin for Claude Code.
 
 | Command | Description |
 |---|---|
-| `/eli-init` | Initialize eli-spec directory and auto-generate config.yaml from project context |
+| `/eli-init` | Initialize feature-spec directory and auto-generate config.yaml from project context |
 | `/eli-propose <description>` | Generate spec artifacts (proposal, design, specs, tasks) for a new change |
 | `/eli-validate <change-name>` | Validate spec artifacts against structural and content rules |
 | `/eli-apply <change-name>` | Implement tasks using agent team dispatch (no questions asked) |
@@ -22,7 +22,7 @@ Spec-driven multi-agent development team plugin for Claude Code.
 ## Spec Directory Structure
 
 ```
-eli-spec/
+feature-spec/
   config.yaml               # Project context (auto-generated on first run)
   specs/                     # Accumulated main specs
     <capability>/spec.md

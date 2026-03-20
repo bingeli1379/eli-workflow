@@ -20,14 +20,14 @@ Validate spec artifacts for a change. Checks structural completeness, content qu
    Extract `<change-name>` from the argument.
 
    If no change name provided:
-   - List directories under `eli-spec/changes/` (excluding `archive/`)
+   - List directories under `feature-spec/changes/` (excluding `archive/`)
    - If only one active change exists, auto-select it
    - If multiple, use **AskUserQuestion** to let the user choose
    - If none exist, report error: "No active changes found. Run `/eli-propose` first."
 
 2. **Verify change directory exists**
 
-   Check that `eli-spec/changes/<name>/` exists. If not, report error with available changes.
+   Check that `feature-spec/changes/<name>/` exists. If not, report error with available changes.
 
 3. **Run validation checks**
 
@@ -155,4 +155,4 @@ OR
 - On PASS, suggest running `/eli-apply <name>`
 - On FAIL, list specific fixes needed
 - Never modify artifact files — this is read-only validation
-- If `eli-spec/changes/<name>/` doesn't exist, show helpful error with available changes
+- If `feature-spec/changes/<name>/` doesn't exist, show helpful error with available changes

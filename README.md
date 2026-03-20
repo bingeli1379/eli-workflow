@@ -10,7 +10,7 @@ Combines **SDD** (Spec-Driven Development), **DDD** (Domain-Driven Design), and 
 /eli-init → /eli-propose (auto-validate) → /eli-apply → /eli-archive
 ```
 
-1. **Init** — auto-detect project context, create `eli-spec/` directory
+1. **Init** — auto-detect project context, create `feature-spec/` directory
 2. **Propose** — clarify requirements and define feature boundaries, dispatch architect for design, generate specs (SDD), domain model (DDD), API contract, tasks (TDD structure). Auto-validates and fixes until all checks pass.
 3. **Apply** — launch named orchestrator agent to dispatch agent team in parallel, review, and verify. User can interact with orchestrator anytime.
 4. **Archive** — sync specs and move completed change to archive
@@ -70,7 +70,7 @@ claude
 /eli-propose add user search feature for admin dashboard
 ```
 
-Creates `eli-spec/changes/add-user-search/` with:
+Creates `feature-spec/changes/add-user-search/` with:
 - `proposal.md` — what & why
 - `design.md` — how (domain model, API contract, shared types, decisions)
 - `specs/<capability>/spec.md` — acceptance criteria (WHEN/THEN)
@@ -191,7 +191,7 @@ All skills are included — no additional installation needed.
 ## Spec Directory Structure
 
 ```
-eli-spec/
+feature-spec/
   config.yaml               # Project context (auto-generated)
   specs/                     # Accumulated main specs
     <capability>/spec.md
@@ -210,7 +210,7 @@ eli-spec/
 
 - Edit `agents/` to adjust role definitions, tech stack, or coding standards
 - Edit `skills/propose/templates/` to customize artifact templates
-- Edit `eli-spec/config.yaml` in your project to set project-specific context and rules
+- Edit `feature-spec/config.yaml` in your project to set project-specific context and rules
 
 ## Credits
 

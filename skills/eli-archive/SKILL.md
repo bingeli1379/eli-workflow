@@ -17,7 +17,7 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 1. **Select the change**
 
    If a name is provided, use it. Otherwise:
-   - List directories under `eli-spec/changes/` (excluding `archive/`)
+   - List directories under `feature-spec/changes/` (excluding `archive/`)
    - If only one active change exists, auto-select it
    - If multiple, use **AskUserQuestion** to let the user choose
    - If none exist, report error: "No active changes to archive."
@@ -26,7 +26,7 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 
 2. **Check task completion status**
 
-   Read `eli-spec/changes/<name>/tasks.md`:
+   Read `feature-spec/changes/<name>/tasks.md`:
    - Count tasks marked `- [ ]` (incomplete) vs `- [x]` (complete)
    - Display: "Tasks: N/M complete"
 
@@ -39,13 +39,13 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 
 3. **Check and sync delta specs**
 
-   Check for delta specs at `eli-spec/changes/<name>/specs/`.
+   Check for delta specs at `feature-spec/changes/<name>/specs/`.
 
    **If no delta specs exist:** Skip to step 4.
 
    **If delta specs exist:**
-   - For each `eli-spec/changes/<name>/specs/<capability>/spec.md`:
-     - Check if corresponding main spec exists at `eli-spec/specs/<capability>/spec.md`
+   - For each `feature-spec/changes/<name>/specs/<capability>/spec.md`:
+     - Check if corresponding main spec exists at `feature-spec/specs/<capability>/spec.md`
      - Determine action needed: CREATE (new capability) or UPDATE (existing capability)
    - Show summary:
      ```
@@ -58,21 +58,21 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
      - "Archive without syncing" — keep delta specs only in archive
 
    **If user chooses sync:**
-   - For CREATE: copy `eli-spec/changes/<name>/specs/<cap>/spec.md` to `eli-spec/specs/<cap>/spec.md`
+   - For CREATE: copy `feature-spec/changes/<name>/specs/<cap>/spec.md` to `feature-spec/specs/<cap>/spec.md`
    - For UPDATE: overwrite the main spec with the delta spec
-   - Create `eli-spec/specs/<cap>/` directory if needed
+   - Create `feature-spec/specs/<cap>/` directory if needed
    - Report: "✓ Synced N specs to main"
 
 4. **Perform the archive**
 
-   Generate target path: `eli-spec/changes/archive/YYYY-MM-DD-<change-name>/`
+   Generate target path: `feature-spec/changes/archive/YYYY-MM-DD-<change-name>/`
 
    **Check if target already exists:**
    - If yes: append a counter suffix (e.g., `YYYY-MM-DD-<name>-2`)
    - Move the change directory to archive:
      ```bash
-     mkdir -p eli-spec/changes/archive
-     mv eli-spec/changes/<name> eli-spec/changes/archive/YYYY-MM-DD-<name>
+     mkdir -p feature-spec/changes/archive
+     mv feature-spec/changes/<name> feature-spec/changes/archive/YYYY-MM-DD-<name>
      ```
 
 5. **Display summary**
@@ -82,7 +82,7 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
    ## Archive Complete
 
    **Change:** <change-name>
-   **Archived to:** eli-spec/changes/archive/YYYY-MM-DD-<name>/
+   **Archived to:** feature-spec/changes/archive/YYYY-MM-DD-<name>/
    **Tasks:** M/M complete ✓
    **Specs:** ✓ Synced to main specs (or "Sync skipped" or "No delta specs")
    ```
@@ -92,7 +92,7 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
    ## Archive Complete (with warnings)
 
    **Change:** <change-name>
-   **Archived to:** eli-spec/changes/archive/YYYY-MM-DD-<name>/
+   **Archived to:** feature-spec/changes/archive/YYYY-MM-DD-<name>/
 
    **Warnings:**
    - Archived with N incomplete tasks

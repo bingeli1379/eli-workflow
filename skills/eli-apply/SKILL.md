@@ -20,7 +20,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 1. **Select the change**
 
    If a name is provided, use it. Otherwise:
-   - List directories under `eli-spec/changes/` (excluding `archive/`)
+   - List directories under `feature-spec/changes/` (excluding `archive/`)
    - Auto-select if only one active change exists
    - If multiple, use **AskUserQuestion** to let the user choose
    - If none exist, report error: "No active changes found. Run `/eli-propose` first."
@@ -34,7 +34,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
 3. **Pre-lint and commit (clean slate)**
 
-   If `lint_commands` are configured in `eli-spec/config.yaml`:
+   If `lint_commands` are configured in `feature-spec/config.yaml`:
    1. Run all lint commands to fix any pre-existing formatting issues
    2. Check `git status` — if there are any changes produced by linting:
       - Stage all changed files
@@ -45,14 +45,14 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 
 4. **Read all context files**
 
-   Read these files from `eli-spec/changes/<name>/`:
+   Read these files from `feature-spec/changes/<name>/`:
    - `proposal.md` — scope and capabilities
    - `design.md` — technical decisions and approach
    - `tasks.md` — implementation checklist
    - `specs/*/spec.md` — all capability specs (acceptance criteria)
 
    Also read:
-   - `eli-spec/config.yaml` — project context and `lint_commands` (if exists)
+   - `feature-spec/config.yaml` — project context and `lint_commands` (if exists)
 
    **If any required file is missing** (proposal, design, tasks, or specs):
    - Show which files are missing
@@ -104,7 +104,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    [agent role definition from agents/<agent>.md]
 
    ## Project Context
-   [from eli-spec/config.yaml]
+   [from feature-spec/config.yaml]
 
    ## Design Decisions
    [relevant sections from design.md]

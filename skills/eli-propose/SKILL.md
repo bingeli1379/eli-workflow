@@ -32,24 +32,24 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 
    **IMPORTANT**: Do NOT proceed without understanding what the user wants to build.
 
-2. **Ensure eli-spec is initialized**
+2. **Ensure feature-spec is initialized**
 
-   Check if `eli-spec/config.yaml` exists. If not, execute the `init` skill logic to initialize the directory structure and auto-detect project context.
+   Check if `feature-spec/config.yaml` exists. If not, execute the `init` skill logic to initialize the directory structure and auto-detect project context.
 
-   If already initialized, read `eli-spec/config.yaml` for project context.
+   If already initialized, read `feature-spec/config.yaml` for project context.
 
 3. **Create the change directory**
 
    ```
-   eli-spec/changes/<name>/
+   feature-spec/changes/<name>/
    ```
 
    If a change with that name already exists, use **AskUserQuestion** to ask if user wants to continue it or create a new one with a different name.
 
 4. **Read existing context**
 
-   - Read `eli-spec/config.yaml` for project context (tech stack, conventions, rules)
-   - Read `eli-spec/specs/` for existing main specs (to understand what capabilities already exist)
+   - Read `feature-spec/config.yaml` for project context (tech stack, conventions, rules)
+   - Read `feature-spec/specs/` for existing main specs (to understand what capabilities already exist)
    - These inform artifact generation but are NOT copied into artifact files
 
 5. **Clarify requirements and define feature boundaries**
@@ -142,8 +142,8 @@ After all artifacts are created, **automatically runs validation** (`validate` s
 
    Use the **Agent** tool to spawn the architect agent with:
    - `subagent_type`: `"eli-workflow:architect"`
-   - Prompt: the proposal.md content, project context from config.yaml, existing specs from `eli-spec/specs/`, and the design.md template from `templates/`
-   - Instruct the architect to write `design.md` directly to `eli-spec/changes/<name>/design.md`
+   - Prompt: the proposal.md content, project context from config.yaml, existing specs from `feature-spec/specs/`, and the design.md template from `templates/`
+   - Instruct the architect to write `design.md` directly to `feature-spec/changes/<name>/design.md`
 
    The architect agent will produce:
    - Context, Goals/Non-Goals, Decisions (with alternatives considered), Risks/Trade-offs
@@ -158,7 +158,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    **c. specs/<capability>/spec.md** (one per capability from proposal)
    - Read proposal.md and design.md first
    - For EACH capability listed in proposal's "New Capabilities" and "Modified Capabilities":
-     - Create `eli-spec/changes/<name>/specs/<capability-name>/spec.md`
+     - Create `feature-spec/changes/<name>/specs/<capability-name>/spec.md`
    - Each requirement MUST use `SHALL` or `MUST` keyword
    - Each requirement MUST have at least 2 Scenarios with WHEN/THEN (happy path + edge case minimum)
    - Scenarios should also cover: error cases, authorization (if applicable)
@@ -207,7 +207,7 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    ```
    ## Spec Created: <change-name>
 
-   **Location:** eli-spec/changes/<name>/
+   **Location:** feature-spec/changes/<name>/
 
    ### Artifacts
    - proposal.md — [one-line summary]
