@@ -111,11 +111,12 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    - Implement each task in order
    - Follow the spec scenarios as acceptance criteria
    - Follow the design decisions — do NOT deviate
-   - **After completing each task**, you MUST:
-     1. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
-     2. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
-     3. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`)
-   - Do NOT batch multiple tasks into one commit
+   - **CRITICAL — Committing is EXPLICITLY REQUIRED by the user as part of this workflow. You are authorized and expected to commit after every task. This is NOT optional.** After completing each task, you MUST:
+     1. Stage all changed files with `git add` (specify files by name)
+     2. Update `tasks.md`: change that task's `- [ ]` to `- [x]`
+     3. Run all lint commands listed above (if any) to fix formatting — stage any changes they produce
+     4. Commit ALL changes together (code + checkbox + lint fixes) using Conventional Commits: `<type>: <task-number> <description>` (e.g., `feat: 1.1 add UserSearch entity`)
+   - Do NOT batch multiple tasks into one commit — one commit per task, no exceptions
    - After the commit, report back: "DONE: <task-number> <task-description>"
    - Only add code comments for business logic that is not obvious from the code — if good naming makes it clear, skip the comment
    - Do NOT ask questions — specs should be complete. If something is genuinely ambiguous, skip it and flag it
