@@ -187,6 +187,11 @@ conventional-commits:
   repo: https://github.com/Jamie-BitFlight/claude_skills
   path: plugins/conventional-commits/skills/conventional-commits
 
+# Canvas / 2D Game
+pixi-js:
+  repo: https://github.com/mindrally/skills
+  path: pixi-js
+
 # Workflow core (eli-workflow original — not updatable)
 esdd-init:
   repo: original

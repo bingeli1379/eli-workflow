@@ -82,6 +82,9 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 - `pnpm` — pnpm package manager, workspaces, catalogs
 - `web-design-guidelines` — Web Interface Guidelines compliance
 
+### Canvas / 2D Game Skills
+- `pixi-js` — PixiJS game development, TypeScript, rendering optimization, mobile (from [mindrally/skills](https://github.com/mindrally/skills))
+
 ### Electron Skills (from [chrisvoncsefalvay/claude-skills](https://github.com/chrisvoncsefalvay/claude-skills))
 - `electron-dev` — Electron scaffolding, IPC patterns, security hardening, auto-update, packaging
 
