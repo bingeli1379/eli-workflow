@@ -192,6 +192,14 @@ pixi-js:
   repo: https://github.com/mindrally/skills
   path: pixi-js
 
+# 3D / WebGL
+threejs-geometry:
+  repo: https://github.com/cloudai-x/threejs-skills
+  path: skills/threejs-geometry
+threejs-tresjs:
+  repo: https://github.com/martinholovsky/claude-skills-generator
+  path: skills/threejs-tresjs
+
 # Workflow core (eli-workflow original — not updatable)
 esdd-init:
   repo: original

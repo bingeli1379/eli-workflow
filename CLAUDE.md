@@ -85,6 +85,10 @@ Skills in `skills/` provide domain knowledge that agents can reference.
 ### Canvas / 2D Game Skills
 - `pixi-js` — PixiJS game development, TypeScript, rendering optimization, mobile (from [mindrally/skills](https://github.com/mindrally/skills))
 
+### 3D / WebGL Skills
+- `threejs-geometry` — Three.js geometry creation, BufferGeometry, instancing, morph targets (from [cloudai-x/threejs-skills](https://github.com/cloudai-x/threejs-skills))
+- `threejs-tresjs` — Three.js + TresJS (Vue 3), 3D HUD rendering, performance patterns, security (from [martinholovsky/claude-skills-generator](https://github.com/martinholovsky/claude-skills-generator))
+
 ### Electron Skills (from [chrisvoncsefalvay/claude-skills](https://github.com/chrisvoncsefalvay/claude-skills))
 - `electron-dev` — Electron scaffolding, IPC patterns, security hardening, auto-update, packaging
 
