@@ -168,6 +168,11 @@ After all artifacts are created, **automatically runs validation** (`validate` s
    - **Group by feature/phase**, NOT by agent type. Each group is an independent functional unit (e.g., `User Search`, `Search Suggestions`).
      - GOOD: `## 1. User Search` (contains Backend + Frontend + E2E tasks)
      - BAD: `## 1. Backend - All` (groups by agent, blocks parallelism)
+   - **For refactoring / migration / style changes**: group by **type of change**, NOT by directory or module. Each group = one kind of mechanical operation across all affected files.
+     - GOOD: `## 1. Remove empty script setup blocks` (all files, one commit after squash)
+     - GOOD: `## 2. Reorder SFC blocks to script-template-style` (all directories, one commit)
+     - BAD: `## 2. Reorder SFC in core` + `## 3. Reorder SFC in productPlatform` + `## 4. Reorder SFC in games` (same operation split by directory — produces redundant commits)
+     - Rule of thumb: if a reviewer would say "this is the same change, just different files", it belongs in one group
    - **Tag each task with an agent type** in parentheses:
      - `(Backend)` → dotnet-engineer (includes unit tests, TDD style)
      - `(Frontend)` → vue-engineer (includes unit tests, TDD style)

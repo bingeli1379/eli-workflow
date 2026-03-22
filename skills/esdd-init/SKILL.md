@@ -89,6 +89,8 @@ Initialize the `feature-spec/` directory structure in the current project and au
    lint_commands:
      - [detected lint/format commands in fix mode]
 
+   # commit_squash: by_group
+
    rules:
      proposal:
        - [project-specific rules if detected]
