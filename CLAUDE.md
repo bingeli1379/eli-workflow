@@ -5,7 +5,8 @@ Spec-driven multi-agent development team plugin for Claude Code.
 ## Workflow
 
 ```
-/esdd-init → /esdd-propose → /esdd-validate → /esdd-apply → /esdd-archive
+Full:  /esdd-init → /esdd-propose → /esdd-validate → /esdd-apply → /esdd-archive
+Quick: /esdd-quick <description>  (inline analysis → agent dispatch, no spec files)
 ```
 
 ## Skills (User-Invocable)
@@ -15,6 +16,7 @@ Spec-driven multi-agent development team plugin for Claude Code.
 | `/esdd-init` | Initialize feature-spec directory and auto-generate config.yaml from project context |
 | `/esdd-propose <description>` | Generate spec artifacts (proposal, design, specs, tasks) for a new change |
 | `/esdd-validate <change-name>` | Validate spec artifacts against structural and content rules |
+| `/esdd-quick <description>` | Quick mode — orchestrator analyzes inline and dispatches agents, no spec files |
 | `/esdd-apply <change-name>` | Implement tasks using agent team dispatch (no questions asked) |
 | `/esdd-apply-all [names...]` | Batch apply multiple changes sequentially, unattended |
 | `/esdd-archive <change-name>` | Archive completed change, sync specs to main |
