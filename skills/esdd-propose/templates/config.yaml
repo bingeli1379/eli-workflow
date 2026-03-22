@@ -20,14 +20,12 @@
 #     - pnpm stylelint --fix "**/*.{css,vue}"
 #     - dotnet format
 
-# Commit consolidation after esdd-apply
-# Controls how commits are organized after all agents finish.
-# Options:
-#   by_group — squash commits by task group for cleaner PR history (default)
-#              Agents still commit per-task during execution (race-safe).
-#              Squashing happens post-execution as a safe, verified step.
-#   none     — keep one commit per task (detailed history)
-commit_squash: by_group
+# Commit consolidation after esdd-apply (default: enabled)
+# After all agents finish, per-task commits are automatically reorganized into
+# reviewer-friendly groups (squash by task group, reword with clear summaries,
+# merge non-task commits into relevant groups). No configuration needed.
+# Set to "none" to keep the raw per-task commit history:
+#   commit_squash: none
 
 # Per-artifact rules (optional)
 # Add custom rules for specific artifacts.

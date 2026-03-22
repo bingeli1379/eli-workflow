@@ -221,80 +221,88 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
    你想怎麼處理？
    ```
 
-10. **Consolidate commits (if configured)**
+10. **Consolidate commits for reviewer**
 
-    Skip this step if `commit_squash` is not set to `by_group` in `feature-spec/config.yaml`, or if total esdd-apply commits ≤ 3.
+    Skip if `commit_squash` is explicitly set to `none` in `feature-spec/config.yaml`, or if total esdd-apply commits ≤ 3. Runs by default — no configuration needed.
 
-    **Purpose**: Agent execution produces one commit per task for race-condition safety. This post-processing step squashes them into one commit per task group for a cleaner PR history. Agent behavior is completely unaffected.
+    **Purpose**: Agent execution produces one commit per task for race-condition safety. This step reorganizes them into reviewer-friendly groups. Agent behavior is completely unaffected.
 
     **Algorithm:**
 
-    a. **Record the base commit** (`BASE_SHA`): the parent of the first esdd-apply commit in this session (noted from Step 3 — the commit before "chore: pre-lint cleanup" or the first agent commit).
+    a. **Record base and create backup**:
+       - `BASE_SHA`: parent of the first esdd-apply commit (noted from Step 3)
+       - `git tag esdd-pre-squash`
 
-    b. **Create safety backup**: `git tag esdd-pre-squash`
+    b. **Collect and classify commits**:
+       - `git log --oneline --format="%H %s" $BASE_SHA..HEAD`
+       - For each commit, also get changed files: `git show --stat --format="" <sha>`
+       - Read task group headings from `tasks.md` (`## N. <heading>` lines)
 
-    c. **Map commits to task groups**:
-       - `git log --oneline $BASE_SHA..HEAD` to list all commits
-       - Extract task group number from each commit message: the **full integer** before the first dot in the task number (e.g., `1.1` → group `1`, `4.3` → group `4`, `10.2` → group `10`). Use regex: `(\d+)\.\d+`
-       - **Non-task commits** (no task number pattern, e.g., `chore: pre-lint cleanup`, spec artifact commits, review/QA fix commits without task numbers) → **always `pick`, never squash**. These are distinct operations and must not be merged with each other or with task commits.
-       - Get group headings from `tasks.md` (the `## N. <heading>` lines)
+       Classify every commit into a **group**:
+       1. **Task commits** (message matches `(\d+)\.\d+`) → map to task group by the integer before the dot
+       2. **Non-task commits** — analyze their content and merge into the most relevant task group:
+          - Review/security fix commits → merge into the group whose files they touched most
+          - Pre-lint cleanup → merge into the first task group
+          - QA fix commits → merge into the group whose tests/code they fixed
+          - If genuinely unrelated to any group (e.g., spec-only changes) → keep as standalone `pick`
 
-    d. **Analyze commit order and choose strategy**:
+    c. **Determine reorder strategy**:
 
-       Examine the commit sequence to determine if task groups are interleaved (from parallel agents):
+       Check if commits are interleaved (parallel agents produced alternating group commits):
+       - Walk the classified commit list; if any group appears in more than one contiguous run → **interleaved**
 
-       - **Non-interleaved** (all commits from each group are consecutive): safe to squash in place.
-         Example: `1.1, 1.2, 1.3, 2.1, 2.2, 4.1, 4.2` → groups are contiguous blocks.
-       - **Interleaved** (commits from different groups alternate): only squash consecutive runs.
-         Example: `1.1, 3.1, 1.2, 3.2, 1.3` → groups 1 and 3 are interleaved.
+       **If interleaved — attempt reorder**:
+       1. Build a reordered sequence: group all same-group commits together, preserving relative order within each group, ordered by first appearance of each group
+       2. Write a `GIT_SEQUENCE_EDITOR` script that outputs this reordered todo (all as `pick`)
+       3. Execute: `GIT_SEQUENCE_EDITOR="/tmp/esdd-reorder.sh" git rebase -i $BASE_SHA`
+       4. If rebase fails (conflict) → `git rebase --abort` and fall back to **consecutive-only mode** (skip reorder, proceed to step d with original order)
 
-       Detection: walk the commit list and check if any group appears in more than one contiguous run. If so, the sequence is interleaved.
+       **If non-interleaved** → proceed directly to step d.
 
-    e. **Squash via non-interactive rebase**:
-       - Write a shell script to `/tmp/esdd-squash-todo.sh` that transforms the rebase todo file:
-         - Walk commits in order
-         - Non-task commits → always `pick` (never squash)
-         - Task commits: if in the **same group as the previous task commit** AND they are adjacent (no different-group commit in between) → mark as `fixup`
-         - Otherwise → `pick`
+    d. **Squash within groups (single-pass rebase)**:
+       - Write `/tmp/esdd-squash.sh` that transforms the rebase todo:
+         - Track current group as we walk commits top-to-bottom
+         - First commit of each group → `pick`
+         - Subsequent consecutive commits in the same group → `fixup`
+         - Standalone non-task commits (not merged into any group) → `pick`
+       - After each group's last `fixup`, insert an `exec` line to reword the commit:
+         ```
+         exec git commit --amend -m "<new message>"
+         ```
+         Where `<new message>` is a reviewer-friendly summary written by the orchestrator:
+         - Format: `<type>: <concise summary of all changes in this group>`
+         - Type follows conventional commits (`feat`, `fix`, `test`, `docs`, `style`, `chore`, etc.)
+         - Derive from the task group heading + actual changes, NOT from individual task numbers
+         - Example: `feat: add user search API with filtering and pagination`
+         - Example: `feat: add search page with input, results list, and empty state`
+         - Example: `test: add unit and E2E tests for user search`
+         - Non-task standalone commits keep their original message
        - Execute:
          ```bash
-         chmod +x /tmp/esdd-squash-todo.sh
-         GIT_SEQUENCE_EDITOR="/tmp/esdd-squash-todo.sh" git rebase -i $BASE_SHA
+         chmod +x /tmp/esdd-squash.sh
+         GIT_SEQUENCE_EDITOR="/tmp/esdd-squash.sh" git rebase -i $BASE_SHA
          ```
-       - With `GIT_SEQUENCE_EDITOR`, the rebase is fully non-interactive — no user input required.
 
-       **If commits are interleaved**, announce to the user after squash:
-       ```
-       ⚠ Parallel agent commits were interleaved — squashed consecutive runs only.
-       Some groups have multiple commits (e.g., group 1 split into 2 commits).
-       Run `git rebase -i` manually if you want to consolidate further.
-       ```
-
-    f. **Reword surviving task commits** with group-level summaries:
-       - After squash, each group's commit still has its first task's message (e.g., `style: 1.1 remove empty <script setup> from Loading.vue`)
-       - Write a message mapping file and an editor script:
-         - The mapping maps task group numbers to desired messages (e.g., `1` → `style: remove empty script setup blocks`)
-         - Derive the message from the task group heading in `tasks.md`, using the appropriate conventional commit type
-       - Execute a second non-interactive rebase:
-         ```bash
-         GIT_SEQUENCE_EDITOR="sed -i.bak 's/^pick /reword /' \$1" \
-         GIT_EDITOR="/tmp/esdd-reword.sh" \
-         git rebase -i $BASE_SHA
-         ```
-         Where `/tmp/esdd-reword.sh` reads the current message from `$1`, determines the group from the task number, looks up the mapping, and writes the new message. Non-task commits keep their original message (the editor script should pass them through unchanged).
-
-    g. **Verify integrity**:
+    e. **Verify integrity**:
        ```bash
        git diff esdd-pre-squash HEAD
        ```
-       - Must produce **no output** (identical final state)
-       - If diff is non-empty → `git reset --hard esdd-pre-squash` and report: "Commit consolidation failed, original commits preserved."
-       - If clean → `git tag -d esdd-pre-squash` and show the consolidated commit log
+       - Empty diff → success. Delete tag: `git tag -d esdd-pre-squash`
+       - Non-empty diff → `git reset --hard esdd-pre-squash`, report: "Commit consolidation failed, original commits preserved."
+
+       Show the consolidated commit log and announce:
+       ```
+       ## Commits consolidated for review
+
+       <git log --oneline $BASE_SHA..HEAD>
+
+       (original per-task commits squashed into N reviewer-friendly commits)
+       ```
 
     **Abort conditions** — keep original per-task commits and report why:
     - Total commits ≤ 3 (not worth squashing)
-    - Rebase encounters merge conflicts
-    - Verification diff is non-empty (safety net triggered)
+    - Rebase encounters merge conflicts (after reorder fallback already attempted)
+    - Verification diff is non-empty
     - Any step fails unexpectedly
 
 ---
@@ -310,7 +318,7 @@ Implement tasks from a spec change. Reads all spec artifacts, prepares context, 
 - If `lint_commands` are configured in `config.yaml`, agents MUST run them before every commit — no exceptions
 - If a task genuinely cannot be implemented (missing dependency, unclear spec), skip it and flag it in the report — do NOT block the entire pipeline
 - Keep code changes minimal and scoped to each task
-- **One commit per task during execution** — each task gets its own commit using Conventional Commits: `<type>: <task-number> <description>`. If `commit_squash: by_group` is configured, these are consolidated post-execution in Step 10.
+- **One commit per task during execution** — each task gets its own commit using Conventional Commits: `<type>: <task-number> <description>`. Unless `commit_squash: none`, these are automatically reorganized into reviewer-friendly groups in Step 10 (reorder interleaved commits, squash per group, reword with clear summaries, merge non-task commits into relevant groups).
 - Work on the current branch — do NOT create or switch branches
 - Code review and QA are mandatory steps — do NOT skip them
 - If review or QA fails, auto-dispatch fixes immediately (max 2 retry rounds). Only pause and report to user if still failing after retries.
