@@ -1,6 +1,6 @@
 {
   "name": "eli-workflow",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "description": "Spec-driven AI development workflow plugin. Generates structured specs (proposal, design, tasks) from requirements, then dispatches specialized agents to implement, validate, and archive — turning ideas into code with minimal manual intervention.",
   "author": {
     "name": "Eli",
