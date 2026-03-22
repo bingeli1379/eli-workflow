@@ -1,28 +1,33 @@
 ---
 name: esdd-archive
 description: >
-  Archive a completed change. Checks task completion, syncs delta specs
-  to main specs, and moves the change to the archive directory.
+  Archive completed changes. If a name is given, archive that specific change.
+  If omitted, auto-scan and batch-archive all fully completed changes.
+  Syncs delta specs to main specs by default.
 user-invocable: true
 ---
 
-Archive a completed change. Verifies completion status, offers to sync delta specs to main specs, then moves the change to the archive.
+Archive completed changes. Verifies completion status, syncs delta specs to main specs, then moves the change to the archive.
 
 ---
 
-**Input**: Optionally specify a change name (e.g., `/esdd-archive add-user-search`). If omitted, auto-detect.
+**Input**: Optionally specify a change name (e.g., `/esdd-archive add-user-search`). If omitted, auto-scan for all completed changes.
 
 **Steps**
 
-1. **Select the change**
+1. **Select change(s) to archive**
 
-   If a name is provided, use it. Otherwise:
-   - List directories under `feature-spec/changes/` (excluding `archive/`)
-   - If only one active change exists, auto-select it
-   - If multiple, use **AskUserQuestion** to let the user choose
+   **If a name is provided:** Use that single change. Go to step 2.
+
+   **If no name is provided (batch mode):**
+   - List all directories under `feature-spec/changes/` (excluding `archive/`)
    - If none exist, report error: "No active changes to archive."
+   - For each change, read its `tasks.md` and count `- [ ]` vs `- [x]`
+   - Collect changes where **all tasks are complete** (zero `- [ ]` remaining), or where `tasks.md` does not exist
+   - If no changes qualify, report: "No fully completed changes found." and list each change with its completion status (e.g., `add-user-search: 3/5 tasks complete`)
+   - If one or more qualify, display them and proceed to archive **all** of them sequentially (steps 2–4 for each)
 
-   **IMPORTANT**: If multiple changes exist and no name is provided, always let the user choose.
+   **IMPORTANT**: Batch mode does NOT ask for confirmation — it archives all fully completed changes automatically.
 
 2. **Check task completion status**
 
@@ -30,34 +35,29 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
    - Count tasks marked `- [ ]` (incomplete) vs `- [x]` (complete)
    - Display: "Tasks: N/M complete"
 
-   **If incomplete tasks found:**
+   **If incomplete tasks found (only possible when name is explicitly provided):**
    - Display warning showing count and list of incomplete tasks
    - Use **AskUserQuestion** to confirm: "Archive with N incomplete tasks?" / "Cancel"
    - Proceed only if user confirms
 
    **If no tasks.md exists:** Proceed without task-related warning.
 
-3. **Check and sync delta specs**
+3. **Sync delta specs to main specs**
 
    Check for delta specs at `feature-spec/changes/<name>/specs/`.
 
    **If no delta specs exist:** Skip to step 4.
 
-   **If delta specs exist:**
+   **If delta specs exist — sync automatically (default behavior):**
    - For each `feature-spec/changes/<name>/specs/<capability>/spec.md`:
      - Check if corresponding main spec exists at `feature-spec/specs/<capability>/spec.md`
-     - Determine action needed: CREATE (new capability) or UPDATE (existing capability)
-   - Show summary:
+     - Determine action: CREATE (new capability) or UPDATE (existing capability)
+   - Display summary:
      ```
-     Delta specs found:
+     Delta specs synced:
      - user-search-api: CREATE (new spec)
-     - user-search-ui: CREATE (new spec)
+     - user-search-ui: UPDATE (existing spec)
      ```
-   - Use **AskUserQuestion** with options:
-     - "Sync now (recommended)" — copy delta specs to main specs
-     - "Archive without syncing" — keep delta specs only in archive
-
-   **If user chooses sync:**
    - For CREATE: copy `feature-spec/changes/<name>/specs/<cap>/spec.md` to `feature-spec/specs/<cap>/spec.md`
    - For UPDATE: overwrite the main spec with the delta spec
    - Create `feature-spec/specs/<cap>/` directory if needed
@@ -77,17 +77,17 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 
 5. **Display summary**
 
-   **On success:**
+   **Single change:**
    ```
    ## Archive Complete
 
    **Change:** <change-name>
    **Archived to:** feature-spec/changes/archive/YYYY-MM-DD-<name>/
    **Tasks:** M/M complete ✓
-   **Specs:** ✓ Synced to main specs (or "Sync skipped" or "No delta specs")
+   **Specs:** ✓ Synced to main specs (or "No delta specs")
    ```
 
-   **On success with warnings:**
+   **Single change with warnings (explicitly named, incomplete tasks):**
    ```
    ## Archive Complete (with warnings)
 
@@ -96,15 +96,30 @@ Archive a completed change. Verifies completion status, offers to sync delta spe
 
    **Warnings:**
    - Archived with N incomplete tasks
-   - Delta spec sync was skipped
+   ```
+
+   **Batch mode:**
+   ```
+   ## Batch Archive Complete
+
+   Archived N change(s):
+
+   | Change | Tasks | Specs Synced | Archived To |
+   |--------|-------|-------------|-------------|
+   | add-user-search | 5/5 ✓ | 2 synced | archive/2026-03-22-add-user-search/ |
+   | fix-login-bug | 3/3 ✓ | No delta specs | archive/2026-03-22-fix-login-bug/ |
+
+   Skipped M change(s) with incomplete tasks:
+   - refactor-auth: 2/4 tasks complete
    ```
 
 ---
 
 ## Guardrails
 
-- Always prompt for change selection if not provided and multiple exist
-- Don't block archive on warnings — just inform and confirm
+- Batch mode (no name provided) only archives fully completed changes — never archives incomplete ones without explicit naming
+- When a name is explicitly provided, allow archiving incomplete changes with user confirmation
+- Delta specs are always synced to main specs by default (no prompt)
 - Preserve all files when moving to archive (the directory moves as-is)
 - Show clear summary of what happened
 - Use today's date (YYYY-MM-DD) for archive directory prefix
