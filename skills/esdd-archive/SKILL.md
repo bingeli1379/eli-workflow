@@ -75,7 +75,17 @@ Archive completed changes. Verifies completion status, syncs delta specs to main
      mv feature-spec/changes/<name> feature-spec/changes/archive/YYYY-MM-DD-<name>
      ```
 
-5. **Display summary**
+5. **Auto-commit archived changes**
+
+   After archiving (and syncing specs if applicable), automatically create a git commit:
+
+   - Stage all changes under `feature-spec/` (archived files, synced specs, removed change directories)
+   - Commit message format:
+     - Single change: `chore: archive <change-name>`
+     - Batch mode: `chore: archive <name1>, <name2>, ...`
+   - Do NOT push to remote — only commit locally
+
+6. **Display summary**
 
    **Single change:**
    ```
